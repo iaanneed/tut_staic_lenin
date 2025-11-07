@@ -363,10 +363,8 @@ async function handleUrlHash() {
         try {
             let geojsonData;
             if (geojsonDataCache) {
-                console.log('Using data from cache.');
                 geojsonData = geojsonDataCache;
             } else {
-                console.log('Cache is empty. Loading monuments.geojson...');
                 const response = await fetch('monuments.geojson');
                 if (!response.ok) return;
                 geojsonData = await response.json();
