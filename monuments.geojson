@@ -6,7 +6,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          23.833945164187078, 53.68381559318151
+          23.833945164187078,
+          53.68381559318151
         ]
       },
       "properties": {
@@ -25,7 +26,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-        23.655955, 53.829806
+          23.655955,
+          53.829806
         ]
       },
       "properties": {
@@ -44,7 +46,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-        26.017487, 53.132544
+          26.017487,
+          53.132544
         ]
       },
       "properties": {
@@ -63,7 +66,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-        26.839776,55.11328
+          26.839776,
+          55.11328
         ]
       },
       "properties": {
@@ -78,30 +82,32 @@
       }
     },
     {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [
-            26.173468,53.650124
-          ]
-        },
-        "properties": {
-          "city": "аг. Шчорсы",
-          "title": null,
-          "regionHashtag": "#Гродзенская",
-          "monumentType": "бюст",
-          "imageUrl_preview":"photos/photo_6@17-03-2024_14-30-08.jpg",
-          "imageUrl_full": "photos/photo_6@17-03-2024_14-30-08.jpg",
-          "source_id": 7,
-          "source_date": "2024-03-17T14:30:08"
-        }
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.173468,
+          53.650124
+        ]
       },
+      "properties": {
+        "city": "аг. Шчорсы",
+        "title": null,
+        "regionHashtag": "#Гродзенская",
+        "monumentType": "бюст",
+        "imageUrl_preview": "photos/photo_6@17-03-2024_14-30-08.jpg",
+        "imageUrl_full": "photos/photo_6@17-03-2024_14-30-08.jpg",
+        "source_id": 7,
+        "source_date": "2024-03-17T14:30:08"
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
         "type": "Point",
         "coordinates": [
-        25.3187939713401,53.0954872005343
+          25.3187939713401,
+          53.0954872005343
         ]
       },
       "properties": {
@@ -120,7 +126,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            26.8390719599467,54.3076604587084
+          26.8390719599467,
+          54.3076604587084
         ]
       },
       "properties": {
@@ -139,7 +146,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            30.0367418479064,52.8906967980827
+          30.0367418479064,
+          52.8906967980827
         ]
       },
       "properties": {
@@ -158,7 +166,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          23.6844670966561,52.0935163243121
+          23.6844670966561,
+          52.0935163243121
         ]
       },
       "properties": {
@@ -177,7 +186,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            27.545469111108,53.8956038334424
+          27.545469111108,
+          53.8956038334424
         ]
       },
       "properties": {
@@ -196,7 +206,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            27.7033125804914,53.9439192343726
+          27.7033125804914,
+          53.9439192343726
         ]
       },
       "properties": {
@@ -215,7 +226,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            27.709199,53.94849
+          27.709199,
+          53.94849
         ]
       },
       "properties": {
@@ -234,7 +246,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            30.4295530482612,54.5107001748269
+          30.4295530482612,
+          54.5107001748269
         ]
       },
       "properties": {
@@ -253,7 +266,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            27.6253626897853,53.9294196692112
+          27.6253626897853,
+          53.9294196692112
         ]
       },
       "properties": {
@@ -272,7 +286,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            26.9143054422577,54.487957993998
+          26.9143054422577,
+          54.487957993998
         ]
       },
       "properties": {
@@ -291,7 +306,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            29.4230244511694,52.8060560226653
+          29.4230244511694,
+          52.8060560226653
         ]
       },
       "properties": {
@@ -310,7 +326,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            29.2248957435917,53.1458079943614
+          29.2248957435917,
+          53.1458079943614
         ]
       },
       "properties": {
@@ -329,7 +346,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            28.3215268936012,54.0943092449006
+          28.3215268936012,
+          54.0943092449006
         ]
       },
       "properties": {
@@ -348,7 +366,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            27.5484621317327,53.8920836367731
+          27.5484621317327,
+          53.8920836367731
         ]
       },
       "properties": {
@@ -367,7 +386,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            30.3430678566825,53.9094250129242
+          30.3430678566825,
+          53.9094250129242
         ]
       },
       "properties": {
@@ -386,7 +406,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            28.9939828136835,53.8346139882511
+          28.9939828136835,
+          53.8346139882511
         ]
       },
       "properties": {
@@ -405,7 +426,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-        24.3547935209975,52.2087375432104
+          24.3547935209975,
+          52.2087375432104
         ]
       },
       "properties": {
@@ -424,7 +446,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            28.7805635933225,55.4910986443725
+          28.7805635933225,
+          55.4910986443725
         ]
       },
       "properties": {
@@ -443,7 +466,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.730309,53.476406
+          26.730309,
+          53.476406
         ]
       },
       "properties": {
@@ -462,7 +486,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-        26.680797,53.219944
+          26.680797,
+          53.219944
         ]
       },
       "properties": {
@@ -481,7 +506,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            27.292261,54.004623
+          27.292261,
+          54.004623
         ]
       },
       "properties": {
@@ -500,7 +526,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            26.1027807498019,52.1109795491107
+          26.1027807498019,
+          52.1109795491107
         ]
       },
       "properties": {
@@ -519,7 +546,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            30.2061698709898,55.1934458832185
+          30.2061698709898,
+          55.1934458832185
         ]
       },
       "properties": {
@@ -538,7 +566,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            28.638462,53.308767
+          28.638462,
+          53.308767
         ]
       },
       "properties": {
@@ -557,7 +586,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            31.171414,52.55904
+          31.171414,
+          52.55904
         ]
       },
       "properties": {
@@ -576,7 +606,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            30.991327,52.43079
+          30.991327,
+          52.43079
         ]
       },
       "properties": {
@@ -595,7 +626,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            28.512088,54.224538
+          28.512088,
+          54.224538
         ]
       },
       "properties": {
@@ -614,7 +646,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            30.976642,52.35035
+          30.976642,
+          52.35035
         ]
       },
       "properties": {
@@ -633,7 +666,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            27.847645,54.200334
+          27.847645,
+          54.200334
         ]
       },
       "properties": {
@@ -652,7 +686,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            27.889508,53.852315
+          27.889508,
+          53.852315
         ]
       },
       "properties": {
@@ -671,7 +706,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            28.089739, 54.030089
+          28.089739,
+          54.030089
         ]
       },
       "properties": {
@@ -690,7 +726,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-            27.031941, 55.639685
+          27.031941,
+          55.639685
         ]
       },
       "properties": {
@@ -709,7 +746,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          28.773352, 55.484895
+          28.773352,
+          55.484895
         ]
       },
       "properties": {
@@ -728,7 +766,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          27.552975, 53.027151 
+          27.552975,
+          53.027151
         ]
       },
       "properties": {
@@ -740,6 +779,266 @@
         "imageUrl_full": "photos/photo_47@18-07-2025_07-48-36.jpg",
         "source_id": 49,
         "source_date": "2025-07-18T07:48:36"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.855145,
+          52.217553
+        ]
+      },
+      "properties": {
+        "city": "г. Жыткавічы",
+        "title": "Ульянов-гимназист",
+        "regionHashtag": "#Гомельская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_48@05-08-2025_16-33-11.jpg",
+        "imageUrl_full": "photos/photo_48@05-08-2025_16-33-11.jpg",
+        "source_id": 51,
+        "source_date": "2025-08-05T16:33:11"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.981745,
+          55.462298
+        ]
+      },
+      "properties": {
+        "city": "г. Гарадок",
+        "title": null,
+        "regionHashtag": "#Віцебская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_49@10-08-2025_12-04-07.jpg",
+        "imageUrl_full": "photos/photo_49@10-08-2025_12-04-07.jpg",
+        "source_id": 52,
+        "source_date": "2025-08-10T12:04:07"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.989033,
+          55.453661
+        ]
+      },
+      "properties": {
+        "city": "г. Гарадок",
+        "title": "пляскаты",
+        "regionHashtag": "#Віцебская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_50@10-08-2025_12-07-18.jpg",
+        "imageUrl_full": "photos/photo_50@10-08-2025_12-07-18.jpg",
+        "source_id": 53,
+        "source_date": "2025-08-10T12:07:18"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.453951,
+          54.626762
+        ]
+      },
+      "properties": {
+        "city": "г. Жодзішкі",
+        "title": "вусач",
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_51@16-08-2025_12-15-51.jpg",
+        "imageUrl_full": "photos/photo_51@16-08-2025_12-15-51.jpg",
+        "source_id": 54,
+        "source_date": "2025-08-16T12:15:51"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.500912,
+          53.717517
+        ]
+      },
+      "properties": {
+        "city": "г. Бярозаўка",
+        "title": "Ленін кантралюе якасць шкла з завода \"Неман\"",
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_52@17-08-2025_21-17-02.jpg",
+        "imageUrl_full": "photos/photo_52@17-08-2025_21-17-02.jpg",
+        "source_id": 55,
+        "source_date": "2025-08-17T21:17:02"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.30164,
+          53.892069
+        ]
+      },
+      "properties": {
+        "city": "г. Ліда",
+        "title": "Фестывальны сення",
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_53@13-09-2025_13-45-33.jpg",
+        "imageUrl_full": "photos/photo_53@13-09-2025_13-45-33.jpg",
+        "source_id": 56,
+        "source_date": "2025-09-13T13:45:33"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.932534,
+          55.779241
+        ]
+      },
+      "properties": {
+        "city": "г. Верхнядзвінск",
+        "title": "Uļjanova kvantu dvīnis. Piemēram, ja esi latvietis.",
+        "regionHashtag": "#Віцебская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_54@07-11-2025_21-31-56.jpg",
+        "imageUrl_full": "photos/photo_54@07-11-2025_21-31-56.jpg",
+        "source_id": 57,
+        "source_date": "2025-11-07T21:31:56"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.250684,
+          53.590271
+        ]
+      },
+      "properties": {
+        "city": "г. Скідзель",
+        "title": "галоўны скідзельскі бурак",
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_55@07-11-2025_21-36-20.jpg",
+        "imageUrl_full": "photos/photo_55@07-11-2025_21-36-20.jpg",
+        "source_id": 58,
+        "source_date": "2025-11-07T21:36:20"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.557445,
+          53.908984
+        ]
+      },
+      "properties": {
+        "city": "г. Мінск",
+        "title": "Ленін думае, чым заняцца у кастрычніку",
+        "regionHashtag": "#Мінская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_56@07-11-2025_21-41-39.jpg",
+        "imageUrl_full": "photos/photo_56@07-11-2025_21-41-39.jpg",
+        "source_id": 59,
+        "source_date": "2025-11-07T21:41:39"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.742513,
+          53.604686
+        ]
+      },
+      "properties": {
+        "city": "г. Шчучын",
+        "title": null,
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_57@07-11-2025_21-45-50.jpg",
+        "imageUrl_full": "photos/photo_57@07-11-2025_21-45-50.jpg",
+        "source_id": 60,
+        "source_date": "2025-11-07T21:45:50"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.462608,
+          52.555114
+        ]
+      },
+      "properties": {
+        "city": "г. Пружаны",
+        "title": "манументальны",
+        "regionHashtag": "#Брэсцкая",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_58@07-11-2025_21-49-02.jpg",
+        "imageUrl_full": "photos/photo_58@07-11-2025_21-49-02.jpg",
+        "source_id": 61,
+        "source_date": "2025-11-07T21:49:02"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.211488,
+          52.054823
+        ]
+      },
+      "properties": {
+        "city": "г. Давыд-Гарадок",
+        "title": null,
+        "regionHashtag": "#Брэсцкая",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_59@07-11-2025_22-42-41.jpg",
+        "imageUrl_full": "photos/photo_59@07-11-2025_22-42-41.jpg",
+        "source_id": 62,
+        "source_date": "2025-11-07T22:42:41"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.057452,
+          53.754134
+        ]
+      },
+      "properties": {
+        "city": "г. п. Любча",
+        "title": null,
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_44@17-06-2025_10-33-22.jpg",
+        "imageUrl_full": "photos/photo_44@17-06-2025_10-33-22.jpg",
+        "source_id": 46,
+        "source_date": "2025-06-17T10:33:22"
       }
     }
   ]

@@ -34,20 +34,52 @@ class FilterManager {
     this.map = map;
     this.layerId = layerId;
     this.filterProperty = filterProperty;
+    this.sourceData = null;
+  }
+  
+  async loadSourceData() {
+    if (this.sourceData) return this.sourceData;
+    
+    try {
+      const response = await fetch('monuments.geojson');
+      if (!response.ok) throw new Error('Failed to load GeoJSON');
+      this.sourceData = await response.json();
+      return this.sourceData;
+    } catch (error) {
+      console.error('Error loading source data:', error);
+      return null;
+    }
   }
 
-  applyFilter(tag) {
-    if (!tag) {
-      this.map.setFilter(this.layerId, null);
+  async applyFilter(tag) {
+    if (!this.sourceData) {
+      await this.loadSourceData();
+    }
 
+    const filter = tag ? ['==', ['get', this.filterProperty], tag] : null;
+    this.map.setFilter(this.layerId, filter);
+
+    const filteredFeatures = this.sourceData.features.filter(feature => {
+      if (!tag) return true;
+      return feature.properties[this.filterProperty] === tag;
+    });
+
+    if (filteredFeatures.length) {
+      const bounds = new maplibregl.LngLatBounds();
+      
+      filteredFeatures.forEach(feature => {
+        bounds.extend(feature.geometry.coordinates);
+      });
+
+      this.map.fitBounds(bounds, {
+        padding: 300,
+        duration: 2000,
+        maxZoom: 12
+      });
     } else {
-      this.map.setFilter(this.layerId, ['==', ['get', this.filterProperty], tag]);
+      console.warn('No features found for selected filter');
     }
-    this.map.fitBounds(BELARUS_BOUNDS, {
-        padding: 10,
-        duration: 2300
-        });
-    }
+  }
 }
 
 class AboutControl {
@@ -110,7 +142,7 @@ class FilterControl {
     <button class="filter-toggle">Вобласці ▼</button>
     <div class="filter-tags-container hidden">
         ${this.tags.map(tag => {
-        const displayTag = tag.startsWith('#') ? tag.substring(1) : tag; // Для UI без #
+        const displayTag = tag.startsWith('#') ? tag.substring(1) : tag; 
         return `
             <button class="filter-tag" data-tag="${tag}">${displayTag || 'Усе'}</button>
         `;
@@ -331,10 +363,8 @@ async function handleUrlHash() {
         try {
             let geojsonData;
             if (geojsonDataCache) {
-                console.log('Using data from cache.');
                 geojsonData = geojsonDataCache;
             } else {
-                console.log('Cache is empty. Loading monuments.geojson...');
                 const response = await fetch('monuments.geojson');
                 if (!response.ok) return;
                 geojsonData = await response.json();
