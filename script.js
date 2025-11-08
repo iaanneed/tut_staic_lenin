@@ -71,8 +71,11 @@ class FilterManager {
         bounds.extend(feature.geometry.coordinates);
       });
 
+      const isMobile = window.innerWidth <= 480;
+      const padding = isMobile ? 20 : 100;
+
       this.map.fitBounds(bounds, {
-        padding: 300,
+        padding: padding,
         duration: 2000,
         maxZoom: 12
       });
