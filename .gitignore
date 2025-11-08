@@ -5,4 +5,5 @@ images
 .DS_Store
 /ChatExport_2025-11-07
 /__pycache__
-parse_new_monuments.py
+/scripts
+/.vscode

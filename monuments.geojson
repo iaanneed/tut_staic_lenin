@@ -1040,6 +1040,146 @@
         "source_id": 46,
         "source_date": "2025-06-17T10:33:22"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.54305,
+          53.413471
+        ]
+      },
+      "properties": {
+        "city": "г. Масты",
+        "title": null,
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_60@08-11-2025_13-41-35.jpg",
+        "imageUrl_full": "photos/photo_60@08-11-2025_13-41-35.jpg",
+        "source_id": 63,
+        "source_date": "2025-11-08T13:41:35"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.787059,
+          53.160217
+        ]
+      },
+      "properties": {
+        "city": "п. Бародзічы",
+        "title": "Юнак",
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_61@08-11-2025_15-41-04.jpg",
+        "imageUrl_full": "photos/photo_61@08-11-2025_15-41-04.jpg",
+        "source_id": 64,
+        "source_date": "2025-11-08T15:41:04"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.817634,
+          53.160487
+        ]
+      },
+      "properties": {
+        "city": "г. п. Зельва",
+        "title": null,
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_62@08-11-2025_15-42-58.jpg",
+        "imageUrl_full": "photos/photo_62@08-11-2025_15-42-58.jpg",
+        "source_id": 65,
+        "source_date": "2025-11-08T15:42:58"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.816934,
+          53.14932
+        ]
+      },
+      "properties": {
+        "city": "г. п. Зельва",
+        "title": "шчэ адзін залаты хлопчык",
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_63@08-11-2025_15-44-50.jpg",
+        "imageUrl_full": "photos/photo_63@08-11-2025_15-44-50.jpg",
+        "source_id": 66,
+        "source_date": "2025-11-08T15:44:50"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.322468,
+          53.096448
+        ]
+      },
+      "properties": {
+        "city": "г. Слонім",
+        "title": "Ленін з кнігай",
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_64@08-11-2025_17-01-09.jpg",
+        "imageUrl_full": "photos/photo_64@08-11-2025_17-01-09.jpg",
+        "source_id": 67,
+        "source_date": "2025-11-08T17:01:09"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.392262,
+          53.091754
+        ]
+      },
+      "properties": {
+        "city": "г. Слоним (каля Альбярціна)",
+        "title": null,
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_65@08-11-2025_17-22-37.jpg",
+        "imageUrl_full": "photos/photo_65@08-11-2025_17-22-37.jpg",
+        "source_id": 68,
+        "source_date": "2025-11-08T17:22:37"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.103888,
+          52.111091
+        ]
+      },
+      "properties": {
+        "city": "г. Пінск",
+        "title": "Ленін У.І. і Бабушкін І.В. чытаюць першы выпуск газеты \"Звязда\"",
+        "regionHashtag": "#Брэсцкая",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_66@08-11-2025_19-15-46.jpg",
+        "imageUrl_full": "photos/photo_66@08-11-2025_19-15-46.jpg",
+        "source_id": 69,
+        "source_date": "2025-11-08T19:15:46"
+      }
     }
   ]
 }

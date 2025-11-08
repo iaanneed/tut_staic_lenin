@@ -112,10 +112,10 @@ class ResetViewControl {
         this._container.innerHTML = '<button type="button" aria-label="Вярнуцца да пачатковага выгляду" title="Вярнуцца да пачатковага выгляду"><b>⛶</b></button>';
         
         this._container.onclick = () => {
-            this._map.fitBounds(BELARUS_BOUNDS, {
-                padding: 10, 
+            const options = {
                 duration: 2300 
-            });
+            };
+            this._map.fitBounds(BELARUS_BOUNDS, options);
         };
         return this._container;
     }
@@ -124,6 +124,51 @@ class ResetViewControl {
         this._container.parentNode.removeChild(this._container);
         this._map = undefined;
     }
+}
+
+class LayerControl {
+  constructor() {
+    this.container = null;
+    this.isPossibleVisible = false;
+  }
+
+  onAdd(map) {
+    this.map = map;
+
+    this.container = document.createElement('div');
+    this.container.className = 'maplibregl-ctrl maplibregl-ctrl-group layer-control';
+
+    this.container.innerHTML = `
+      <button class="layer-toggle" title="Магчымыя Леніны">
+        <svg width="18" height="18" viewBox="0 0 185 185" fill="currentColor" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <path d="M151.083 161.875L102.521 113.313C98.6667 116.396 94.2344 118.837 89.224 120.635C84.2135 122.434 78.8819 123.333 73.2292 123.333C59.2257 123.333 47.3741 118.484 37.6745 108.784C27.9748 99.0842 23.125 87.2326 23.125 73.2292C23.125 59.2257 27.9748 47.3741 37.6745 37.6745C47.3741 27.9748 59.2257 23.125 73.2292 23.125C87.2326 23.125 99.0842 27.9748 108.784 37.6745C118.484 47.3741 123.333 59.2257 123.333 73.2292C123.333 78.8819 122.434 84.2135 120.635 89.224C118.837 94.2344 116.396 98.6667 113.313 102.521L161.875 151.083L151.083 161.875ZM73.2292 107.917C82.8646 107.917 91.0547 104.544 97.7995 97.7995C104.544 91.0547 107.917 82.8646 107.917 73.2292C107.917 63.5938 104.544 55.4036 97.7995 48.6589C91.0547 41.9141 82.8646 38.5417 73.2292 38.5417C63.5938 38.5417 55.4036 41.9141 48.6589 48.6589C41.9141 55.4036 38.5417 63.5938 38.5417 73.2292C38.5417 82.8646 41.9141 91.0547 48.6589 97.7995C55.4036 104.544 63.5938 107.917 73.2292 107.917Z"/>
+        </svg>
+      </button>
+    `;
+
+    this.toggleButton = this.container.querySelector('.layer-toggle');
+    this.toggleButton.onclick = () => {
+      this.togglePossibleLayer();
+    };
+
+    return this.container;
+  }
+
+  togglePossibleLayer() {
+    this.isPossibleVisible = !this.isPossibleVisible;
+    
+    if (this.map.getLayer('possible-points')) {
+      this.map.setLayoutProperty('possible-points', 'visibility', 
+        this.isPossibleVisible ? 'visible' : 'none');
+    }
+    
+    this.toggleButton.classList.toggle('active', this.isPossibleVisible);
+  }
+
+  onRemove() {
+    this.container.parentNode.removeChild(this.container);
+    this.map = undefined;
+  }
 }
 
 class FilterControl {
@@ -165,6 +210,7 @@ class FilterControl {
         this.filterManager.applyFilter(tag);
         this.tagsContainer.querySelectorAll('.filter-tag').forEach(b => {
             b.classList.toggle('selected', b === btn); });        
+        this.updateToggleButtonText(tag);
         this.closeTags();
       };
     });
@@ -188,6 +234,15 @@ class FilterControl {
     this.container.classList.remove('open');
   }
 
+  updateToggleButtonText(tag) {
+    if (!tag || tag === '') {
+      this.toggleButton.textContent = 'Вобласці ▼';
+    } else {
+      const displayTag = tag.startsWith('#') ? tag.substring(1) : tag;
+      this.toggleButton.textContent = `${displayTag} ▼`;
+    }
+  }
+
   onRemove() {
     this.container.parentNode.removeChild(this.container);
     this.map = undefined;
@@ -201,9 +256,16 @@ map.on('load', async () => {
             data: 'monuments.geojson'
         });
 
+        map.addSource('possible-lenin', {
+            type: 'geojson',
+            data: 'possible_lenin.geojson'
+        });
+
         const image = await map.loadImage('photos/image.png');
+        const qpointerImage = await map.loadImage('photos/qpointer.png');
         
         map.addImage('monument-icon', image.data);
+        map.addImage('qpointer-icon', qpointerImage.data);
 
         map.addLayer({
             id: 'monument-points',
@@ -223,22 +285,55 @@ map.on('load', async () => {
             },
         });
 
+        map.addLayer({
+            id: 'possible-points',
+            type: 'symbol',
+            source: 'possible-lenin',
+            layout: {
+                'icon-image': 'qpointer-icon',
+                'icon-allow-overlap': true,
+                'icon-anchor': 'bottom',
+                'icon-size': [
+                    'interpolate', 
+                    ['linear'],    
+                    ['zoom'],      
+                    6, 0.05,     
+                    15, 0.09,
+                ],
+                'visibility': 'none'
+            },
+        });
+
         map.on('click', 'monument-points', (e) => {
             const feature = e.features[0];
             openSidebarForFeature(feature);
+        });
 
+        map.on('click', 'possible-points', (e) => {
+            const feature = e.features[0];
+            openSidebarForPossible(feature);
         });
 
         map.on('mouseenter', 'monument-points', () => { map.getCanvas().style.cursor = 'pointer'; });
         map.on('mouseleave', 'monument-points', () => { map.getCanvas().style.cursor = ''; });
+        map.on('mouseenter', 'possible-points', () => { map.getCanvas().style.cursor = 'pointer'; });
+        map.on('mouseleave', 'possible-points', () => { map.getCanvas().style.cursor = ''; });
 
         map.addControl(new AboutControl(), 'top-right');
         const filterManager = new FilterManager(map, 'monument-points', 'regionHashtag');
         const filterControl = new FilterControl(filterManager, tags);
+        const layerControl = new LayerControl();
         map.addControl(new ResetViewControl(), 'top-right');
         map.addControl(filterControl, 'top-left');
-
-
+        map.addControl(layerControl, 'top-left');
+        map.addControl(
+        new maplibregl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        })
+    );
 
         await handleUrlHash();
 
@@ -248,6 +343,7 @@ map.on('load', async () => {
 });
 
 closeSidebarBtn.addEventListener('click', () => {
+    map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
     sidebar.classList.remove('visible');
     if (window.location.hash.startsWith('#monument/')) {
         history.replaceState(null, '', window.location.pathname + window.location.search);
@@ -268,6 +364,7 @@ modalOverlay.addEventListener('click', (e) => {
 
 window.onpopstate = function(event) {
     if (!event.state || event.state.sidebar !== 'open') {
+        map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
         sidebar.classList.remove('visible');
     }
 };
@@ -286,6 +383,7 @@ sidebar.addEventListener('click', (e) => {
             filterControl.tagsContainer.querySelectorAll('.filter-tag').forEach(b => {
                 b.classList.toggle('selected', b.getAttribute('data-tag') === filterControl.selectedTag);
             });
+            filterControl.updateToggleButtonText(filterControl.selectedTag);
             filterControl.closeTags();
         }
     }
@@ -304,6 +402,7 @@ tagInSidebar.addEventListener('click', () => {
         filterControl.tagsContainer.querySelectorAll('.filter-tag').forEach(b => {
             b.classList.toggle('selected', b.getAttribute('data-tag') === filterControl.selectedTag);
         });
+        filterControl.updateToggleButtonText(filterControl.selectedTag);
         filterControl.closeTags();
     }
 });
@@ -346,6 +445,84 @@ function openSidebarForFeature(feature) {
         padding = { right: sidebar.offsetWidth };
     }
 
+    // Устанавливаем глобальный padding для карты
+    // map.setPadding(padding);
+
+    map.flyTo({
+        center: coordinates,
+        zoom: 15,
+        speed: 1.5,
+        padding: padding
+    });
+
+    history.pushState({sidebar: 'open', id: properties.source_id}, '', `#monument/${properties.source_id}`);
+
+    sidebar.classList.add('visible');
+}
+
+function openSidebarForPossible(feature) {
+    const properties = feature.properties;
+    const coordinates = feature.geometry.coordinates;
+    const name = properties.name || properties['name:be'] || properties['name:ru'] || 'Ленін';
+    const lat = coordinates[1];
+    const lng = coordinates[0];
+    const coordString = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+    
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const mapsLink = isMobileDevice 
+        ? `geo:${lat},${lng}` 
+        : `https://yandex.ru/maps/?pt=${lng},${lat}&z=15`;
+    
+    const contentHTML = `
+        <div class="card-container">
+            <div class="card-text-wrapper">
+                <header class="card-header">
+                    <h2>${name}</h2>
+                </header>
+                
+                <div class="card-body">
+                    <div class="coordinates-label-row">
+                        <strong>Каардынаты:</strong>
+                        <input type="text" class="coordinates-input" value="${coordString}" readonly>
+                    </div>
+                    <div class="coordinates-buttons">
+                        <a href="${mapsLink}" class="coord-btn maps-btn" target="_blank">Мапы</a>
+                        <a href="https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}&zoom=15" class="coord-btn osm-btn" target="_blank">OSM</a>
+                        <button class="coord-btn copy-btn" data-coords="${coordString}" title="Копі">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    sidebarContent.innerHTML = contentHTML;
+
+    const copyBtn = sidebarContent.querySelector('.copy-btn');
+    copyBtn.onclick = () => {
+        const coords = copyBtn.getAttribute('data-coords');
+        navigator.clipboard.writeText(coords).then(() => {
+            const originalHTML = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+            setTimeout(() => {
+                copyBtn.innerHTML = originalHTML;
+            }, 2000);
+        });
+    };
+
+    const isMobile = window.innerWidth <= 480;
+    let padding;
+    if (isMobile) {
+        sidebar.classList.add('visible', 'measure-helper');
+        padding = { bottom: sidebar.offsetHeight };
+        sidebar.classList.remove('visible', 'measure-helper');
+    } else {
+        padding = { right: sidebar.offsetWidth };
+    }
+
     map.flyTo({
         center: coordinates,
         zoom: 15,
@@ -353,8 +530,6 @@ function openSidebarForFeature(feature) {
         padding: padding
     });
     
-    history.pushState({sidebar: 'open', id: properties.source_id}, '', `#monument/${properties.source_id}`);
-
     sidebar.classList.add('visible');
 }
 

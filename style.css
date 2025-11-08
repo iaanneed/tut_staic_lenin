@@ -5,7 +5,7 @@
     --text-color: #212529;
     --shadow: 0 0 20px rgba(0,0,0,0.08);
     --border-radius: 12px;
-    --accent: #6c757d;
+    --accent: #464646;
     --accent-dark: #495057;
     --button-radius: 6px;
     --button-shadow: 0 2px 8px rgba(108,117,125,0.08);
@@ -84,6 +84,7 @@ body {
 #sidebar-content {
     overflow-y: auto; 
     height: 100%;
+    padding-top: 1rem;
 }
 
 .card-container {
@@ -382,4 +383,118 @@ body {
 .maplibregl-ctrl-group button svg {
     width: 1.5rem; 
     height: 1.5rem;
+}
+
+.maplibregl-ctrl-top-left {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.maplibregl-ctrl-top-left .maplibregl-ctrl-group {
+    margin: 0;
+}
+
+.layer-control {
+    background: var(--panel-background);
+    border-radius: var(--button-radius);
+    box-shadow: var(--button-shadow);
+}
+
+.layer-control .layer-toggle {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 0;
+    background: var(--panel-background);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    border-radius: var(--button-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.layer-control .layer-toggle svg {
+    display: block;
+}
+
+.layer-control .layer-toggle:hover {
+    background-color: rgba(108, 117, 125, 0.1);
+}
+
+.layer-control .layer-toggle.active {
+    background-color: var(--accent);
+    color: #CFBB75;
+}
+
+.coordinates-label-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.coordinates-label-row strong {
+    white-space: nowrap;
+}
+
+.coordinates-input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    color: var(--text-color);
+    background: #f8f9fa;
+    cursor: text;
+}
+
+.coordinates-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: #fff;
+}
+
+.coordinates-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+    width: 100%;
+}
+
+.coord-btn {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    background: var(--accent);
+    color: var(--button-text);
+    border: 0;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.coord-btn:hover {
+    background: var(--accent-dark);
+}
+
+.coord-btn.copy-btn {
+    padding: 0.5rem;
+    min-width: 2.5rem;
+    flex: 0 0 auto;
+}
+
+.coord-btn.copy-btn svg {
+    display: block;
 }
