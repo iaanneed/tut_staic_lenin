@@ -251,6 +251,14 @@ class FilterControl {
 
 map.on('load', async () => { 
     try {
+        map.getStyle().layers.forEach(layer => {
+            if (layer.type === 'symbol' && layer.layout?.['text-field']) {
+                map.setLayoutProperty(layer.id, 'text-field', [
+                    'coalesce', ['get', 'name:be'], ['get', 'name']
+                ]);
+            }
+        });
+
         map.addSource('monuments', {
             type: 'geojson',
             data: 'monuments.geojson'
@@ -274,6 +282,7 @@ map.on('load', async () => {
             layout: {
                 'icon-image': 'monument-icon',
                 'icon-allow-overlap': true,
+                'icon-ignore-placement': true,
                 'icon-anchor': 'bottom',
                 'icon-size': [
                     'interpolate', 
@@ -292,6 +301,7 @@ map.on('load', async () => {
             layout: {
                 'icon-image': 'qpointer-icon',
                 'icon-allow-overlap': true,
+                'icon-ignore-placement': true,
                 'icon-anchor': 'bottom',
                 'icon-size': [
                     'interpolate', 
@@ -445,8 +455,6 @@ function openSidebarForFeature(feature) {
         padding = { right: sidebar.offsetWidth };
     }
 
-    // Устанавливаем глобальный padding для карты
-    // map.setPadding(padding);
 
     map.flyTo({
         center: coordinates,
