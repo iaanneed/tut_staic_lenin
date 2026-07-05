@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iaanneed.github.io/tut_staic_lenin/sitemap.xml
