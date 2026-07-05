@@ -1180,6 +1180,86 @@
         "source_id": 69,
         "source_date": "2025-11-08T19:15:46"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.927907,
+          54.87098
+        ]
+      },
+      "properties": {
+        "city": "г. Мядзел",
+        "title": "Белы звонку, чырвоны унутры",
+        "regionHashtag": "#Мінская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_67@14-12-2025_16-59-29.jpg",
+        "imageUrl_full": "photos/photo_67@14-12-2025_16-59-29.jpg",
+        "source_id": 70,
+        "source_date": "2025-12-14T16:59:29"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.208178,
+          55.202327
+        ]
+      },
+      "properties": {
+        "city": "г. Віцебск",
+        "title": "Зімовае",
+        "regionHashtag": "#Віцебская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_69@13-04-2026_14-39-57.jpg",
+        "imageUrl_full": "photos/photo_69@13-04-2026_14-39-57.jpg",
+        "source_id": 72,
+        "source_date": "2026-04-13T14:39:57"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.562599,
+          53.896311
+        ]
+      },
+      "properties": {
+        "city": "г. Мінск",
+        "title": "Самы алдовы ленін на тэрыторыі Беларусі (1936 г.)",
+        "regionHashtag": "#Мінская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_70@05-07-2026_22-00-04.jpg",
+        "imageUrl_full": "photos/photo_70@05-07-2026_22-00-04.jpg",
+        "source_id": 73,
+        "source_date": "2026-07-05T22:00:04"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.593539,
+          53.781255
+        ]
+      },
+      "properties": {
+        "city": "г. п. Мачулішчы",
+        "title": null,
+        "regionHashtag": "#Мінская",
+        "monumentType": "бюст",
+        "imageUrl_preview": "photos/photo_71@05-07-2026_22-02-46.jpg",
+        "imageUrl_full": "photos/photo_71@05-07-2026_22-02-46.jpg",
+        "source_id": 74,
+        "source_date": "2026-07-05T22:02:46"
+      }
     }
   ]
 }
