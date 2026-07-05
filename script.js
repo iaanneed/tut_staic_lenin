@@ -18,7 +18,6 @@ const modalOverlay = document.getElementById('about-modal-overlay');
 const closeModalBtn = document.getElementById('close-modal-btn');
 const lightboxOverlay = document.getElementById('lightbox-overlay');
 const lightboxImage = document.getElementById('lightbox-image');
-const tagInSidebar = document.getElementById('tag')
 const tags = [
   '',           
   '#Гродзенская',
@@ -402,21 +401,6 @@ sidebar.addEventListener('click', (e) => {
 lightboxOverlay.addEventListener('click', () => {
     lightboxOverlay.classList.add('hidden');
 });
-
-tagInSidebar.addEventListener('click', () => {
-    const tag = tagInSidebar.textContent.trim();
-    const filterControl = map._controls.find(ctrl => ctrl instanceof FilterControl);
-    if (filterControl) {
-        filterControl.selectedTag = tag.startsWith('#') ? tag : `#${tag}`;
-        filterControl.filterManager.applyFilter(filterControl.selectedTag);
-        filterControl.tagsContainer.querySelectorAll('.filter-tag').forEach(b => {
-            b.classList.toggle('selected', b.getAttribute('data-tag') === filterControl.selectedTag);
-        });
-        filterControl.updateToggleButtonText(filterControl.selectedTag);
-        filterControl.closeTags();
-    }
-});
-
 
 function openSidebarForFeature(feature) {
     const properties = feature.properties;
