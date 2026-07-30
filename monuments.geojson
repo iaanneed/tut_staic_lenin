@@ -1260,6 +1260,106 @@
         "source_id": 74,
         "source_date": "2026-07-05T22:02:46"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.051289,
+          53.079233
+        ]
+      },
+      "properties": {
+        "city": "г. Рагачоў",
+        "title": "Ленін плануе звесці \"шчоты з белымі\" у скверу.",
+        "regionHashtag": "#Гомельская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_72@05-07-2026_23-08-26.jpg",
+        "imageUrl_full": "photos/photo_72@05-07-2026_23-08-26.jpg",
+        "source_id": 75,
+        "source_date": "2026-07-05T23:08:26"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.833172,
+          54.423795
+        ]
+      },
+      "properties": {
+        "city": "п. Плешчаніцы",
+        "title": null,
+        "regionHashtag": "#Мінская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_73@30-07-2026_11-28-03.jpg",
+        "imageUrl_full": "photos/photo_73@30-07-2026_11-28-03.jpg",
+        "source_id": 76,
+        "source_date": "2026-07-30T11:28:03"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.958298,
+          54.615442
+        ]
+      },
+      "properties": {
+        "city": "г. Астравец",
+        "title": null,
+        "regionHashtag": "#Гродзенская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_74@30-07-2026_11-31-12.jpg",
+        "imageUrl_full": "photos/photo_74@30-07-2026_11-31-12.jpg",
+        "source_id": 77,
+        "source_date": "2026-07-30T11:31:12"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.157439,
+          53.201753
+        ]
+      },
+      "properties": {
+        "city": "г. Крошын",
+        "title": "aг. Крошын",
+        "regionHashtag": "#Брэсцкая",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_75@30-07-2026_12-32-00.jpg",
+        "imageUrl_full": "photos/photo_75@30-07-2026_12-32-00.jpg",
+        "source_id": 78,
+        "source_date": "2026-07-30T12:32:00"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.573505,
+          53.890079
+        ]
+      },
+      "properties": {
+        "city": "г. Мінск",
+        "title": null,
+        "regionHashtag": "#Мінская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_76@30-07-2026_12-33-31.jpg",
+        "imageUrl_full": "photos/photo_76@30-07-2026_12-33-31.jpg",
+        "source_id": 79,
+        "source_date": "2026-07-30T12:33:31"
+      }
     }
   ]
 }
