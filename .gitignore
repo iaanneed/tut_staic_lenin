@@ -1,9 +1,6 @@
-styleX.css
-style copy.css
-monuments_test.geojson
-images
 .DS_Store
-/ChatExport_2025-11-07
-/__pycache__
-/scripts
-/.vscode
+.venv/
+__pycache__/
+.vscode/
+scripts/raw_data/
+images/
