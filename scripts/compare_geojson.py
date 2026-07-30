@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """
-Build possible_lenin.geojson from OSM Lenin points.
+Build a slim possible_lenin.geojson from OSM Lenin points.
 
 Drops OSM features within BUFFER_METERS of any confirmed monument,
-plus a hard-coded EXCLUDED_IDS list. Overwrites possible_lenin.geojson.
+plus a hard-coded EXCLUDED_IDS list. Keeps only fields used by the map UI.
 """
 
-from __future__ import annotations
-
+import json
 from pathlib import Path
 
 import geopandas as gpd
@@ -30,7 +29,6 @@ EXCLUDED_IDS = [
     "node/4596992698",
 ]
 
-
 def get_utm_crs(gdf: gpd.GeoDataFrame) -> str:
     """Pick a UTM zone from the first geometry (Belarus default: 34N)."""
     if len(gdf) == 0:
@@ -39,6 +37,53 @@ def get_utm_crs(gdf: gpd.GeoDataFrame) -> str:
     lon = first.x if hasattr(first, "x") else first.centroid.x
     utm_zone = int((lon + 180) / 6) + 1
     return f"EPSG:326{utm_zone:02d}"
+
+
+def coalesce_name(row: pd.Series) -> str:
+    for key in ("name", "name:be", "name:ru", "name:en"):
+        value = row.get(key)
+        if value is not None and not (isinstance(value, float) and pd.isna(value)):
+            text = str(value).strip()
+            if text and text.lower() != "nan":
+                return text
+    return "Ленін"
+
+
+def feature_id(row: pd.Series) -> str | None:
+    for key in ("@id", "id"):
+        value = row.get(key)
+        if value is not None and not (isinstance(value, float) and pd.isna(value)):
+            return str(value)
+    return None
+
+
+def to_slim_geojson(gdf: gpd.GeoDataFrame) -> dict:
+    """Compact FeatureCollection with only id / name / memorial."""
+    features = []
+    for _, row in gdf.iterrows():
+        geom = row.geometry
+        if geom is None or geom.is_empty or geom.geom_type != "Point":
+            continue
+
+        props = {"id": feature_id(row), "name": coalesce_name(row)}
+        memorial = row.get("memorial")
+        if memorial is not None and not (isinstance(memorial, float) and pd.isna(memorial)):
+            text = str(memorial).strip()
+            if text and text.lower() != "nan":
+                props["memorial"] = text
+
+        features.append(
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [round(geom.x, 7), round(geom.y, 7)],
+                },
+                "properties": props,
+            }
+        )
+
+    return {"type": "FeatureCollection", "features": features}
 
 
 def main() -> None:
@@ -87,14 +132,18 @@ def main() -> None:
         if excluded_count:
             print(f"  Removed {excluded_count} excluded features")
 
-    print(f"Writing {OUTPUT_FILE}...")
-    filtered_gdf.to_file(OUTPUT_FILE, driver="GeoJSON")
+    slim = to_slim_geojson(filtered_gdf)
+    print(f"Writing slim {OUTPUT_FILE} ({len(slim['features'])} features)...")
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(slim, f, ensure_ascii=False, separators=(",", ":"))
 
+    size_kb = OUTPUT_FILE.stat().st_size / 1024
     print("\nDone.")
     print(f"  OSM input: {len(osm_gdf)}")
     print(f"  Monuments: {len(monuments_gdf)}")
-    print(f"  Remaining possible: {len(filtered_gdf)}")
-    print(f"  Removed: {len(osm_gdf) - len(filtered_gdf)}")
+    print(f"  Remaining possible: {len(slim['features'])}")
+    print(f"  Removed near monuments: {len(osm_gdf) - len(filtered_gdf)}")
+    print(f"  Output size: {size_kb:.1f} KB")
 
 
 if __name__ == "__main__":
