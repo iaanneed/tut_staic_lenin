@@ -1,0 +1,98 @@
+name: Sync Telegram monuments
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: sync-telegram
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the default branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          python-version: "3.14"
+
+      - name: Install locked dependencies
+        run: uv sync --frozen --group dev
+
+      - name: Run unit tests
+        run: uv run pytest
+
+      - name: Create temporary Telegram export
+        run: echo "TELEGRAM_EXPORT=$(mktemp -d)" >> "$GITHUB_ENV"
+
+      - name: Fetch new Telegram posts
+        env:
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+          TELEGRAM_SESSION: ${{ secrets.TELEGRAM_SESSION }}
+        run: uv run python scripts/fetch_telegram_channel.py --output "$TELEGRAM_EXPORT"
+
+      - name: Add new monuments
+        run: >
+          uv run python scripts/parse_new_monuments.py
+          --export "$TELEGRAM_EXPORT"
+          --require-coordinates
+          --added-ids-output "$RUNNER_TEMP/added-source-ids.json"
+
+      - name: Compute bearings for new monuments
+        run: uv run python scripts/compute_view_bearing.py
+
+      - name: Remove confirmed points from possible layer
+        run: uv run python scripts/prune_possible.py
+
+      - name: Validate generated data
+        run: uv run python scripts/validate_data.py
+
+      - name: Detect data changes
+        id: changes
+        shell: bash
+        run: |
+          if [[ -n "$(git status --porcelain -- monuments.geojson possible_lenin.geojson photos/)" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          BRANCH_NAME: automation/telegram-sync-${{ github.run_id }}
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH_NAME"
+          git add monuments.geojson possible_lenin.geojson photos/
+          git commit -m "Sync new Lenin monuments from Telegram"
+          git push --set-upstream origin "$BRANCH_NAME"
+          gh pr create \
+            --base "$BASE_BRANCH" \
+            --head "$BRANCH_NAME" \
+            --title "Sync new Lenin monuments from Telegram" \
+            --body-file - <<'EOF'
+          ## Summary
+          - import new photo posts from the public Telegram channel
+          - compute view bearings for newly added monuments
+          - remove newly confirmed locations from the possible layer
+
+          ## Verification
+          - unit tests passed
+          - GeoJSON and referenced photos validated
+          EOF

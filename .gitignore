@@ -4,3 +4,8 @@ __pycache__/
 .vscode/
 scripts/raw_data/
 images/
+.env
+.env.*
+*.session
+*.session-journal
+.telegram_session*
