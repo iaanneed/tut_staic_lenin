@@ -18,7 +18,8 @@
         "imageUrl_preview": "photos/photo_1@17-03-2024_14-01-44.jpg",
         "imageUrl_full": "photos/photo_1@17-03-2024_14-01-44.jpg",
         "source_id": 2,
-        "source_date": "2024-03-17T14:01:44"
+        "source_date": "2024-03-17T14:01:44",
+        "viewBearing": 273.6
       }
     },
     {
@@ -38,7 +39,8 @@
         "imageUrl_preview": "photos/photo_2@17-03-2024_14-03-58.jpg",
         "imageUrl_full": "photos/photo_2@17-03-2024_14-03-58.jpg",
         "source_id": 3,
-        "source_date": "2024-03-17T14:03:58"
+        "source_date": "2024-03-17T14:03:58",
+        "viewBearing": 127.4
       }
     },
     {
@@ -58,7 +60,8 @@
         "imageUrl_preview": "photos/photo_3@17-03-2024_14-05-04.jpg",
         "imageUrl_full": "photos/photo_3@17-03-2024_14-05-04.jpg",
         "source_id": 4,
-        "source_date": "2024-03-17T14:05:04"
+        "source_date": "2024-03-17T14:05:04",
+        "viewBearing": 339.7
       }
     },
     {
@@ -78,7 +81,8 @@
         "imageUrl_preview": "photos/photo_5@17-03-2024_14-23-40.jpg",
         "imageUrl_full": "photos/photo_5@17-03-2024_14-23-40.jpg",
         "source_id": 6,
-        "source_date": "2024-03-17T14:23:40"
+        "source_date": "2024-03-17T14:23:40",
+        "viewBearing": 255.5
       }
     },
     {
@@ -98,7 +102,8 @@
         "imageUrl_preview": "photos/photo_6@17-03-2024_14-30-08.jpg",
         "imageUrl_full": "photos/photo_6@17-03-2024_14-30-08.jpg",
         "source_id": 7,
-        "source_date": "2024-03-17T14:30:08"
+        "source_date": "2024-03-17T14:30:08",
+        "viewBearing": 221.2
       }
     },
     {
@@ -118,7 +123,8 @@
         "imageUrl_preview": "photos/photo_7@17-03-2024_14-41-39.jpg",
         "imageUrl_full": "photos/photo_7@17-03-2024_14-41-39.jpg",
         "source_id": 8,
-        "source_date": "2024-03-17T14:41:39"
+        "source_date": "2024-03-17T14:41:39",
+        "viewBearing": 81.1
       }
     },
     {
@@ -138,7 +144,8 @@
         "imageUrl_preview": "photos/photo_9@17-03-2024_14-43-50.jpg",
         "imageUrl_full": "photos/photo_9@17-03-2024_14-43-50.jpg",
         "source_id": 10,
-        "source_date": "2024-03-17T14:43:50"
+        "source_date": "2024-03-17T14:43:50",
+        "viewBearing": 107.8
       }
     },
     {
@@ -158,7 +165,8 @@
         "imageUrl_preview": "photos/photo_10@17-03-2024_14-46-14.jpg",
         "imageUrl_full": "photos/photo_10@17-03-2024_14-46-14.jpg",
         "source_id": 11,
-        "source_date": "2024-03-17T14:46:14"
+        "source_date": "2024-03-17T14:46:14",
+        "viewBearing": 201.8
       }
     },
     {
@@ -178,7 +186,8 @@
         "imageUrl_preview": "photos/photo_11@30-03-2024_10-09-47.jpg",
         "imageUrl_full": "photos/photo_11@30-03-2024_10-09-47.jpg",
         "source_id": 12,
-        "source_date": "2024-03-30T10:09:47"
+        "source_date": "2024-03-30T10:09:47",
+        "viewBearing": 236.0
       }
     },
     {
@@ -198,7 +207,8 @@
         "imageUrl_preview": "photos/photo_12@01-04-2024_14-43-05.jpg",
         "imageUrl_full": "photos/photo_12@01-04-2024_14-43-05.jpg",
         "source_id": 13,
-        "source_date": "2024-04-01T14:43:05"
+        "source_date": "2024-04-01T14:43:05",
+        "viewBearing": 330.9
       }
     },
     {
@@ -218,7 +228,8 @@
         "imageUrl_preview": "photos/photo_13@01-04-2024_17-47-25.jpg",
         "imageUrl_full": "photos/photo_13@01-04-2024_17-47-25.jpg",
         "source_id": 14,
-        "source_date": "2024-04-01T17:47:25"
+        "source_date": "2024-04-01T17:47:25",
+        "viewBearing": 43.5
       }
     },
     {
@@ -238,7 +249,8 @@
         "imageUrl_preview": "photos/photo_14@01-04-2024_17-54-54.jpg",
         "imageUrl_full": "photos/photo_14@01-04-2024_17-54-54.jpg",
         "source_id": 15,
-        "source_date": "2024-04-01T17:54:54"
+        "source_date": "2024-04-01T17:54:54",
+        "viewBearing": 101.2
       }
     },
     {
@@ -258,7 +270,8 @@
         "imageUrl_preview": "photos/photo_15@02-04-2024_16-05-00.jpg",
         "imageUrl_full": "photos/photo_15@02-04-2024_16-05-00.jpg",
         "source_id": 16,
-        "source_date": "2024-04-02T16:05:00"
+        "source_date": "2024-04-02T16:05:00",
+        "viewBearing": null
       }
     },
     {
@@ -278,7 +291,8 @@
         "imageUrl_preview": "photos/photo_16@11-05-2024_17-43-03.jpg",
         "imageUrl_full": "photos/photo_16@11-05-2024_17-43-03.jpg",
         "source_id": 17,
-        "source_date": "2024-05-11T17:43:03"
+        "source_date": "2024-05-11T17:43:03",
+        "viewBearing": 65.6
       }
     },
     {
@@ -298,7 +312,8 @@
         "imageUrl_preview": "photos/photo_17@12-05-2024_08-40-09.jpg",
         "imageUrl_full": "photos/photo_17@12-05-2024_08-40-09.jpg",
         "source_id": 18,
-        "source_date": "2024-05-12T08:40:09"
+        "source_date": "2024-05-12T08:40:09",
+        "viewBearing": 274.4
       }
     },
     {
@@ -318,7 +333,8 @@
         "imageUrl_preview": "photos/photo_18@13-05-2024_16-41-45.jpg",
         "imageUrl_full": "photos/photo_18@13-05-2024_16-41-45.jpg",
         "source_id": 19,
-        "source_date": "2024-05-13T16:41:45"
+        "source_date": "2024-05-13T16:41:45",
+        "viewBearing": 141.3
       }
     },
     {
@@ -338,7 +354,8 @@
         "imageUrl_preview": "photos/photo_19@13-05-2024_16-42-00.jpg",
         "imageUrl_full": "photos/photo_19@13-05-2024_16-42-00.jpg",
         "source_id": 20,
-        "source_date": "2024-05-13T16:42:00"
+        "source_date": "2024-05-13T16:42:00",
+        "viewBearing": 299.5
       }
     },
     {
@@ -358,7 +375,8 @@
         "imageUrl_preview": "photos/photo_20@25-05-2024_21-27-33.jpg",
         "imageUrl_full": "photos/photo_20@25-05-2024_21-27-33.jpg",
         "source_id": 21,
-        "source_date": "2024-05-25T21:27:33"
+        "source_date": "2024-05-25T21:27:33",
+        "viewBearing": 192.8
       }
     },
     {
@@ -378,7 +396,8 @@
         "imageUrl_preview": "photos/photo_21@04-06-2024_11-23-21.jpg",
         "imageUrl_full": "photos/photo_21@04-06-2024_11-23-21.jpg",
         "source_id": 22,
-        "source_date": "2024-06-04T11:23:21"
+        "source_date": "2024-06-04T11:23:21",
+        "viewBearing": 342.9
       }
     },
     {
@@ -398,7 +417,8 @@
         "imageUrl_preview": "photos/photo_22@13-06-2024_20-45-12.jpg",
         "imageUrl_full": "photos/photo_22@13-06-2024_20-45-12.jpg",
         "source_id": 23,
-        "source_date": "2024-06-13T20:45:12"
+        "source_date": "2024-06-13T20:45:12",
+        "viewBearing": 186.9
       }
     },
     {
@@ -418,7 +438,8 @@
         "imageUrl_preview": "photos/photo_24@08-07-2024_10-30-56.jpg",
         "imageUrl_full": "photos/photo_24@08-07-2024_10-30-56.jpg",
         "source_id": 25,
-        "source_date": "2024-07-08T10:30:56"
+        "source_date": "2024-07-08T10:30:56",
+        "viewBearing": 92.8
       }
     },
     {
@@ -438,7 +459,8 @@
         "imageUrl_preview": "photos/photo_25@09-07-2024_11-16-13.jpg",
         "imageUrl_full": "photos/photo_25@09-07-2024_11-16-13.jpg",
         "source_id": 26,
-        "source_date": "2024-07-09T11:16:13"
+        "source_date": "2024-07-09T11:16:13",
+        "viewBearing": null
       }
     },
     {
@@ -458,7 +480,8 @@
         "imageUrl_preview": "photos/photo_26@22-07-2024_13-49-10.jpg",
         "imageUrl_full": "photos/photo_26@22-07-2024_13-49-10.jpg",
         "source_id": 27,
-        "source_date": "2024-07-22T13:49:10"
+        "source_date": "2024-07-22T13:49:10",
+        "viewBearing": 28.6
       }
     },
     {
@@ -478,7 +501,8 @@
         "imageUrl_preview": "photos/photo_27@14-08-2024_10-26-03.jpg",
         "imageUrl_full": "photos/photo_27@14-08-2024_10-26-03.jpg",
         "source_id": 28,
-        "source_date": "2024-08-14T10:26:03"
+        "source_date": "2024-08-14T10:26:03",
+        "viewBearing": 192.8
       }
     },
     {
@@ -498,7 +522,8 @@
         "imageUrl_preview": "photos/photo_28@14-08-2024_10-27-45.jpg",
         "imageUrl_full": "photos/photo_28@14-08-2024_10-27-45.jpg",
         "source_id": 29,
-        "source_date": "2024-08-14T10:27:45"
+        "source_date": "2024-08-14T10:27:45",
+        "viewBearing": 293.6
       }
     },
     {
@@ -518,7 +543,8 @@
         "imageUrl_preview": "photos/photo_29@13-09-2024_14-21-44.jpg",
         "imageUrl_full": "photos/photo_29@13-09-2024_14-21-44.jpg",
         "source_id": 31,
-        "source_date": "2024-09-13T14:21:44"
+        "source_date": "2024-09-13T14:21:44",
+        "viewBearing": 79.4
       }
     },
     {
@@ -538,7 +564,8 @@
         "imageUrl_preview": "photos/photo_30@13-09-2024_14-29-04.jpg",
         "imageUrl_full": "photos/photo_30@13-09-2024_14-29-04.jpg",
         "source_id": 32,
-        "source_date": "2024-09-13T14:29:04"
+        "source_date": "2024-09-13T14:29:04",
+        "viewBearing": 337.0
       }
     },
     {
@@ -558,7 +585,8 @@
         "imageUrl_preview": "photos/photo_32@24-11-2024_20-00-39.jpg",
         "imageUrl_full": "photos/photo_32@24-11-2024_20-00-39.jpg",
         "source_id": 34,
-        "source_date": "2024-11-24T20:00:39"
+        "source_date": "2024-11-24T20:00:39",
+        "viewBearing": 272.6
       }
     },
     {
@@ -578,7 +606,8 @@
         "imageUrl_preview": "photos/photo_33@07-12-2024_09-54-04.jpg",
         "imageUrl_full": "photos/photo_33@07-12-2024_09-54-04.jpg",
         "source_id": 35,
-        "source_date": "2024-12-07T09:54:04"
+        "source_date": "2024-12-07T09:54:04",
+        "viewBearing": 116.3
       }
     },
     {
@@ -598,7 +627,8 @@
         "imageUrl_preview": "photos/photo_35@17-03-2025_10-13-20.jpg",
         "imageUrl_full": "photos/photo_35@17-03-2025_10-13-20.jpg",
         "source_id": 37,
-        "source_date": "2025-03-17T10:13:20"
+        "source_date": "2025-03-17T10:13:20",
+        "viewBearing": 79.5
       }
     },
     {
@@ -618,7 +648,8 @@
         "imageUrl_preview": "photos/photo_36@17-03-2025_10-15-27.jpg",
         "imageUrl_full": "photos/photo_36@17-03-2025_10-15-27.jpg",
         "source_id": 38,
-        "source_date": "2025-03-17T10:15:27"
+        "source_date": "2025-03-17T10:15:27",
+        "viewBearing": null
       }
     },
     {
@@ -638,7 +669,8 @@
         "imageUrl_preview": "photos/photo_37@17-03-2025_10-17-00.jpg",
         "imageUrl_full": "photos/photo_37@17-03-2025_10-17-00.jpg",
         "source_id": 39,
-        "source_date": "2025-03-17T10:17:00"
+        "source_date": "2025-03-17T10:17:00",
+        "viewBearing": 21.2
       }
     },
     {
@@ -658,7 +690,8 @@
         "imageUrl_preview": "photos/photo_39@20-04-2025_09-35-53.jpg",
         "imageUrl_full": "photos/photo_39@20-04-2025_09-35-53.jpg",
         "source_id": 41,
-        "source_date": "2025-04-20T09:35:53"
+        "source_date": "2025-04-20T09:35:53",
+        "viewBearing": null
       }
     },
     {
@@ -678,7 +711,8 @@
         "imageUrl_preview": "photos/photo_40@21-04-2025_09-39-42.jpg",
         "imageUrl_full": "photos/photo_40@21-04-2025_09-39-42.jpg",
         "source_id": 42,
-        "source_date": "2025-04-21T09:39:42"
+        "source_date": "2025-04-21T09:39:42",
+        "viewBearing": 256.6
       }
     },
     {
@@ -698,7 +732,8 @@
         "imageUrl_preview": "photos/photo_42@18-05-2025_23-04-54.jpg",
         "imageUrl_full": "photos/photo_42@18-05-2025_23-04-54.jpg",
         "source_id": 44,
-        "source_date": "2025-05-18T23:04:54"
+        "source_date": "2025-05-18T23:04:54",
+        "viewBearing": 228.7
       }
     },
     {
@@ -718,7 +753,8 @@
         "imageUrl_preview": "photos/photo_43@13-06-2025_13-24-03.jpg",
         "imageUrl_full": "photos/photo_43@13-06-2025_13-24-03.jpg",
         "source_id": 45,
-        "source_date": "2025-06-13T13:24:03"
+        "source_date": "2025-06-13T13:24:03",
+        "viewBearing": 358.0
       }
     },
     {
@@ -738,7 +774,8 @@
         "imageUrl_preview": "photos/photo_45@04-07-2025_13-28-15.jpg",
         "imageUrl_full": "photos/photo_45@04-07-2025_13-28-15.jpg",
         "source_id": 47,
-        "source_date": "2025-07-04T13:28:15"
+        "source_date": "2025-07-04T13:28:15",
+        "viewBearing": 296.4
       }
     },
     {
@@ -758,7 +795,8 @@
         "imageUrl_preview": "photos/photo_46@13-07-2025_18-50-53.jpg",
         "imageUrl_full": "photos/photo_46@13-07-2025_18-50-53.jpg",
         "source_id": 48,
-        "source_date": "2025-07-13T18:50:53"
+        "source_date": "2025-07-13T18:50:53",
+        "viewBearing": 7.9
       }
     },
     {
@@ -778,7 +816,8 @@
         "imageUrl_preview": "photos/photo_47@18-07-2025_07-48-36_thumb.jpg",
         "imageUrl_full": "photos/photo_47@18-07-2025_07-48-36.jpg",
         "source_id": 49,
-        "source_date": "2025-07-18T07:48:36"
+        "source_date": "2025-07-18T07:48:36",
+        "viewBearing": 131.2
       }
     },
     {
@@ -798,7 +837,8 @@
         "imageUrl_preview": "photos/photo_48@05-08-2025_16-33-11.jpg",
         "imageUrl_full": "photos/photo_48@05-08-2025_16-33-11.jpg",
         "source_id": 51,
-        "source_date": "2025-08-05T16:33:11"
+        "source_date": "2025-08-05T16:33:11",
+        "viewBearing": 237.6
       }
     },
     {
@@ -818,7 +858,8 @@
         "imageUrl_preview": "photos/photo_49@10-08-2025_12-04-07.jpg",
         "imageUrl_full": "photos/photo_49@10-08-2025_12-04-07.jpg",
         "source_id": 52,
-        "source_date": "2025-08-10T12:04:07"
+        "source_date": "2025-08-10T12:04:07",
+        "viewBearing": 289.4
       }
     },
     {
@@ -838,7 +879,8 @@
         "imageUrl_preview": "photos/photo_50@10-08-2025_12-07-18.jpg",
         "imageUrl_full": "photos/photo_50@10-08-2025_12-07-18.jpg",
         "source_id": 53,
-        "source_date": "2025-08-10T12:07:18"
+        "source_date": "2025-08-10T12:07:18",
+        "viewBearing": null
       }
     },
     {
@@ -858,7 +900,8 @@
         "imageUrl_preview": "photos/photo_51@16-08-2025_12-15-51.jpg",
         "imageUrl_full": "photos/photo_51@16-08-2025_12-15-51.jpg",
         "source_id": 54,
-        "source_date": "2025-08-16T12:15:51"
+        "source_date": "2025-08-16T12:15:51",
+        "viewBearing": null
       }
     },
     {
@@ -878,7 +921,8 @@
         "imageUrl_preview": "photos/photo_52@17-08-2025_21-17-02.jpg",
         "imageUrl_full": "photos/photo_52@17-08-2025_21-17-02.jpg",
         "source_id": 55,
-        "source_date": "2025-08-17T21:17:02"
+        "source_date": "2025-08-17T21:17:02",
+        "viewBearing": 95.1
       }
     },
     {
@@ -898,7 +942,8 @@
         "imageUrl_preview": "photos/photo_53@13-09-2025_13-45-33.jpg",
         "imageUrl_full": "photos/photo_53@13-09-2025_13-45-33.jpg",
         "source_id": 56,
-        "source_date": "2025-09-13T13:45:33"
+        "source_date": "2025-09-13T13:45:33",
+        "viewBearing": 271.1
       }
     },
     {
@@ -918,7 +963,8 @@
         "imageUrl_preview": "photos/photo_54@07-11-2025_21-31-56.jpg",
         "imageUrl_full": "photos/photo_54@07-11-2025_21-31-56.jpg",
         "source_id": 57,
-        "source_date": "2025-11-07T21:31:56"
+        "source_date": "2025-11-07T21:31:56",
+        "viewBearing": 278.8
       }
     },
     {
@@ -938,7 +984,8 @@
         "imageUrl_preview": "photos/photo_55@07-11-2025_21-36-20.jpg",
         "imageUrl_full": "photos/photo_55@07-11-2025_21-36-20.jpg",
         "source_id": 58,
-        "source_date": "2025-11-07T21:36:20"
+        "source_date": "2025-11-07T21:36:20",
+        "viewBearing": 202.6
       }
     },
     {
@@ -958,7 +1005,8 @@
         "imageUrl_preview": "photos/photo_56@07-11-2025_21-41-39.jpg",
         "imageUrl_full": "photos/photo_56@07-11-2025_21-41-39.jpg",
         "source_id": 59,
-        "source_date": "2025-11-07T21:41:39"
+        "source_date": "2025-11-07T21:41:39",
+        "viewBearing": 294.9
       }
     },
     {
@@ -978,7 +1026,8 @@
         "imageUrl_preview": "photos/photo_57@07-11-2025_21-45-50.jpg",
         "imageUrl_full": "photos/photo_57@07-11-2025_21-45-50.jpg",
         "source_id": 60,
-        "source_date": "2025-11-07T21:45:50"
+        "source_date": "2025-11-07T21:45:50",
+        "viewBearing": null
       }
     },
     {
@@ -998,7 +1047,8 @@
         "imageUrl_preview": "photos/photo_58@07-11-2025_21-49-02.jpg",
         "imageUrl_full": "photos/photo_58@07-11-2025_21-49-02.jpg",
         "source_id": 61,
-        "source_date": "2025-11-07T21:49:02"
+        "source_date": "2025-11-07T21:49:02",
+        "viewBearing": null
       }
     },
     {
@@ -1018,7 +1068,8 @@
         "imageUrl_preview": "photos/photo_59@07-11-2025_22-42-41.jpg",
         "imageUrl_full": "photos/photo_59@07-11-2025_22-42-41.jpg",
         "source_id": 62,
-        "source_date": "2025-11-07T22:42:41"
+        "source_date": "2025-11-07T22:42:41",
+        "viewBearing": 108.4
       }
     },
     {
@@ -1038,7 +1089,8 @@
         "imageUrl_preview": "photos/photo_44@17-06-2025_10-33-22.jpg",
         "imageUrl_full": "photos/photo_44@17-06-2025_10-33-22.jpg",
         "source_id": 46,
-        "source_date": "2025-06-17T10:33:22"
+        "source_date": "2025-06-17T10:33:22",
+        "viewBearing": 20.5
       }
     },
     {
@@ -1058,7 +1110,8 @@
         "imageUrl_preview": "photos/photo_60@08-11-2025_13-41-35.jpg",
         "imageUrl_full": "photos/photo_60@08-11-2025_13-41-35.jpg",
         "source_id": 63,
-        "source_date": "2025-11-08T13:41:35"
+        "source_date": "2025-11-08T13:41:35",
+        "viewBearing": 306.9
       }
     },
     {
@@ -1078,7 +1131,8 @@
         "imageUrl_preview": "photos/photo_61@08-11-2025_15-41-04.jpg",
         "imageUrl_full": "photos/photo_61@08-11-2025_15-41-04.jpg",
         "source_id": 64,
-        "source_date": "2025-11-08T15:41:04"
+        "source_date": "2025-11-08T15:41:04",
+        "viewBearing": 57.9
       }
     },
     {
@@ -1098,7 +1152,8 @@
         "imageUrl_preview": "photos/photo_62@08-11-2025_15-42-58.jpg",
         "imageUrl_full": "photos/photo_62@08-11-2025_15-42-58.jpg",
         "source_id": 65,
-        "source_date": "2025-11-08T15:42:58"
+        "source_date": "2025-11-08T15:42:58",
+        "viewBearing": 265.9
       }
     },
     {
@@ -1118,7 +1173,8 @@
         "imageUrl_preview": "photos/photo_63@08-11-2025_15-44-50.jpg",
         "imageUrl_full": "photos/photo_63@08-11-2025_15-44-50.jpg",
         "source_id": 66,
-        "source_date": "2025-11-08T15:44:50"
+        "source_date": "2025-11-08T15:44:50",
+        "viewBearing": null
       }
     },
     {
@@ -1138,7 +1194,8 @@
         "imageUrl_preview": "photos/photo_64@08-11-2025_17-01-09.jpg",
         "imageUrl_full": "photos/photo_64@08-11-2025_17-01-09.jpg",
         "source_id": 67,
-        "source_date": "2025-11-08T17:01:09"
+        "source_date": "2025-11-08T17:01:09",
+        "viewBearing": 264.6
       }
     },
     {
@@ -1158,7 +1215,8 @@
         "imageUrl_preview": "photos/photo_65@08-11-2025_17-22-37.jpg",
         "imageUrl_full": "photos/photo_65@08-11-2025_17-22-37.jpg",
         "source_id": 68,
-        "source_date": "2025-11-08T17:22:37"
+        "source_date": "2025-11-08T17:22:37",
+        "viewBearing": 96.7
       }
     },
     {
@@ -1178,7 +1236,8 @@
         "imageUrl_preview": "photos/photo_66@08-11-2025_19-15-46.jpg",
         "imageUrl_full": "photos/photo_66@08-11-2025_19-15-46.jpg",
         "source_id": 69,
-        "source_date": "2025-11-08T19:15:46"
+        "source_date": "2025-11-08T19:15:46",
+        "viewBearing": 150.6
       }
     },
     {
@@ -1198,7 +1257,8 @@
         "imageUrl_preview": "photos/photo_67@14-12-2025_16-59-29.jpg",
         "imageUrl_full": "photos/photo_67@14-12-2025_16-59-29.jpg",
         "source_id": 70,
-        "source_date": "2025-12-14T16:59:29"
+        "source_date": "2025-12-14T16:59:29",
+        "viewBearing": 128.7
       }
     },
     {
@@ -1218,7 +1278,8 @@
         "imageUrl_preview": "photos/photo_69@13-04-2026_14-39-57.jpg",
         "imageUrl_full": "photos/photo_69@13-04-2026_14-39-57.jpg",
         "source_id": 72,
-        "source_date": "2026-04-13T14:39:57"
+        "source_date": "2026-04-13T14:39:57",
+        "viewBearing": 94.5
       }
     },
     {
@@ -1238,7 +1299,8 @@
         "imageUrl_preview": "photos/photo_70@05-07-2026_22-00-04.jpg",
         "imageUrl_full": "photos/photo_70@05-07-2026_22-00-04.jpg",
         "source_id": 73,
-        "source_date": "2026-07-05T22:00:04"
+        "source_date": "2026-07-05T22:00:04",
+        "viewBearing": 161.7
       }
     },
     {
@@ -1258,7 +1320,8 @@
         "imageUrl_preview": "photos/photo_71@05-07-2026_22-02-46.jpg",
         "imageUrl_full": "photos/photo_71@05-07-2026_22-02-46.jpg",
         "source_id": 74,
-        "source_date": "2026-07-05T22:02:46"
+        "source_date": "2026-07-05T22:02:46",
+        "viewBearing": 20.8
       }
     },
     {
