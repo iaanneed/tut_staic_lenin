@@ -112,7 +112,9 @@ class ResetViewControl {
         
         this._container.onclick = () => {
             const options = {
-                duration: 2300 
+                duration: 2300,
+                pitch: 0,
+                bearing: 0
             };
             this._map.fitBounds(BELARUS_BOUNDS, options);
         };
@@ -248,15 +250,29 @@ class FilterControl {
   }
 }
 
-map.on('load', async () => { 
+map.on('load', async () => {
     try {
-        map.getStyle().layers.forEach(layer => {
+        const styleLayers = map.getStyle().layers;
+        let lastBuildingIndex = -1;
+        styleLayers.forEach((layer, index) => {
+            if (layer['source-layer'] === 'building' || /^building/i.test(layer.id)) {
+                lastBuildingIndex = index;
+            }
+        });
+        let labelLayerId = null;
+        styleLayers.forEach((layer, index) => {
             if (layer.type === 'symbol' && layer.layout?.['text-field']) {
+                if (!labelLayerId && index > lastBuildingIndex) {
+                    labelLayerId = layer.id;
+                }
                 map.setLayoutProperty(layer.id, 'text-field', [
                     'coalesce', ['get', 'name:be'], ['get', 'name']
                 ]);
             }
         });
+        if (!labelLayerId && lastBuildingIndex >= 0 && lastBuildingIndex + 1 < styleLayers.length) {
+            labelLayerId = styleLayers[lastBuildingIndex + 1].id;
+        }
 
         map.addSource('monuments', {
             type: 'geojson',
@@ -267,6 +283,47 @@ map.on('load', async () => {
             type: 'geojson',
             data: 'possible_lenin.geojson'
         });
+
+        for (const layerId of ['building', 'building-top']) {
+            if (map.getLayer(layerId)) {
+                map.setLayoutProperty(layerId, 'visibility', 'none');
+            }
+        }
+
+        map.setLight({
+            anchor: 'map',
+            color: '#f5f2eb',
+            intensity: 0.35,
+            position: [1.3, 210, 45]
+        });
+
+        const building3dLayer = {
+            id: 'building-3d',
+            type: 'fill-extrusion',
+            source: 'carto',
+            'source-layer': 'building',
+            minzoom: 14,
+            paint: {
+                'fill-extrusion-color': '#d6d6d6',
+                'fill-extrusion-height': [
+                    'interpolate', ['linear'], ['zoom'],
+                    14, 0,
+                    15, ['coalesce', ['get', 'render_height'], 0]
+                ],
+                'fill-extrusion-base': [
+                    'interpolate', ['linear'], ['zoom'],
+                    14, 0,
+                    15, ['coalesce', ['get', 'render_min_height'], 0]
+                ],
+                'fill-extrusion-opacity': 0.85,
+                'fill-extrusion-vertical-gradient': true
+            }
+        };
+        if (labelLayerId) {
+            map.addLayer(building3dLayer, labelLayerId);
+        } else {
+            map.addLayer(building3dLayer);
+        }
 
         const image = await map.loadImage('photos/image.png');
         const qpointerImage = await map.loadImage('photos/qpointer.png');
@@ -353,6 +410,7 @@ map.on('load', async () => {
 
 closeSidebarBtn.addEventListener('click', () => {
     map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
+    map.easeTo({ pitch: 0, bearing: 0 });
     sidebar.classList.remove('visible');
     if (window.location.hash.startsWith('#monument/')) {
         history.replaceState(null, '', window.location.pathname + window.location.search);
@@ -374,6 +432,7 @@ modalOverlay.addEventListener('click', (e) => {
 window.onpopstate = function(event) {
     if (!event.state || event.state.sidebar !== 'open') {
         map.setPadding({ top: 0, bottom: 0, left: 0, right: 0 });
+        map.easeTo({ pitch: 0, bearing: 0 });
         sidebar.classList.remove('visible');
     }
 };
@@ -442,7 +501,9 @@ function openSidebarForFeature(feature) {
 
     map.flyTo({
         center: coordinates,
-        zoom: 15,
+        zoom: 17,
+        pitch: 60,
+        bearing: properties.viewBearing ?? map.getBearing(),
         speed: 1.5,
         padding: padding
     });
@@ -517,11 +578,12 @@ function openSidebarForPossible(feature) {
 
     map.flyTo({
         center: coordinates,
-        zoom: 15,
+        zoom: 17,
+        pitch: 60,
         speed: 1.5,
         padding: padding
     });
-    
+
     sidebar.classList.add('visible');
 }
 
