@@ -15,14 +15,15 @@ Heuristic:
      unset -- an earlier version fell back to a building-openness heuristic, but
      it agreed with the road heuristic no better than chance, so it was dropped.
 
-Run:
-  .venv/bin/python scripts/compute_view_bearing.py
+By default only monuments without a `viewBearing` property are processed. Use
+`--force` to intentionally recompute every monument.
 
 Talks to the public Overpass API (OpenStreetMap) -- respects it with batched
 requests and a short delay between them. Raw responses are cached in
-scripts/raw_data/overpass_cache.json so re-runs (e.g. after tuning thresholds)
+scripts/raw_data/overpass_road_cache_v2.json so re-runs (e.g. after tuning thresholds)
 don't re-hit the network.
 """
+import argparse
 import json
 import math
 import os
@@ -34,7 +35,7 @@ import requests
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(HERE)
 MONUMENTS_PATH = os.path.join(PROJECT_ROOT, "monuments.geojson")
-CACHE_PATH = os.path.join(HERE, "raw_data", "overpass_cache.json")
+CACHE_PATH = os.path.join(HERE, "raw_data", "overpass_road_cache_v2.json")
 
 ROAD_RADIUS_M = 50
 ATTRIBUTION_MAX_DIST = 150
@@ -73,36 +74,56 @@ def closest_point_on_segment(px, py, x1, y1, x2, y2):
 
 def overpass_query(clauses):
     query = f"[out:json][timeout:90];\n(\n{clauses}\n);\nout geom;\n"
+    last_error = None
     for attempt in range(3):
         try:
             r = requests.post(OVERPASS_URL, data={"data": query}, headers=HEADERS, timeout=120)
             r.raise_for_status()
             return r.json().get("elements", [])
         except Exception as e:
+            last_error = e
             print(f"  overpass error (attempt {attempt + 1}): {e}", file=sys.stderr)
             time.sleep(5)
-    return []
+    raise RuntimeError("Overpass API failed after 3 attempts") from last_error
+
+
+def point_cache_key(point):
+    return f'{point["lat"]:.7f},{point["lon"]:.7f}'
 
 
 def fetch_roads(points, cache):
-    """Fetch `way[highway](around:...)` for every point, batched, with a
-    persistent on-disk cache."""
-    if "highway" in cache:
-        print(f"  using cached road data ({len(points)} points)", file=sys.stderr)
-        return cache["highway"]
+    """Return nearby roads per point, caching each coordinate independently."""
+    roads_cache = cache.setdefault("roads_by_point", {})
+    roads_by_point = {}
+    missing = []
 
-    elements = []
-    for start in range(0, len(points), BATCH_SIZE):
-        batch = points[start:start + BATCH_SIZE]
-        print(f"  fetching road batch {start}-{start + len(batch) - 1} ...", file=sys.stderr)
+    for index, point in enumerate(points):
+        key = point_cache_key(point)
+        if key in roads_cache:
+            roads_by_point[index] = roads_cache[key]
+        else:
+            missing.append((index, point))
+
+    if roads_by_point:
+        print(f"  using cached road data for {len(roads_by_point)} points", file=sys.stderr)
+
+    for start in range(0, len(missing), BATCH_SIZE):
+        indexed_batch = missing[start:start + BATCH_SIZE]
+        batch = [point for _, point in indexed_batch]
+        print(f"  fetching road batch with {len(batch)} points ...", file=sys.stderr)
         clauses = "\n".join(
             f'  way["highway"](around:{ROAD_RADIUS_M},{p["lat"]:.7f},{p["lon"]:.7f});' for p in batch
         )
-        elements.extend(overpass_query(clauses))
+        elements = overpass_query(clauses)
+        assigned = attribute_to_nearest_point(elements, batch)
+        for local_index, (global_index, point) in enumerate(indexed_batch):
+            roads = assigned[local_index]
+            roads_by_point[global_index] = roads
+            roads_cache[point_cache_key(point)] = roads
         time.sleep(2)
 
-    cache["highway"] = elements
-    return elements
+    cache.pop("highway", None)
+    return roads_by_point
 
 
 def attribute_to_nearest_point(elements, points):
@@ -145,25 +166,53 @@ def road_bearing_for_point(p, ways):
     return best_excluding_minor or best
 
 
+def target_feature_indices(features, force=False):
+    if force:
+        return list(range(len(features)))
+    return [
+        index
+        for index, feature in enumerate(features)
+        if "viewBearing" not in feature.get("properties", {})
+    ]
+
+
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Recompute viewBearing for every monument",
+    )
+    args = parser.parse_args()
+
     data = json.load(open(MONUMENTS_PATH, encoding="utf-8"))
     features = data["features"]
+    target_indices = target_feature_indices(features, force=args.force)
+    if not target_indices:
+        print("No monuments need a viewBearing calculation", file=sys.stderr)
+        return
+
     points = [
-        {"lat": f["geometry"]["coordinates"][1], "lon": f["geometry"]["coordinates"][0]}
-        for f in features
+        {
+            "lat": features[index]["geometry"]["coordinates"][1],
+            "lon": features[index]["geometry"]["coordinates"][0],
+        }
+        for index in target_indices
     ]
-    print(f"Loaded {len(points)} monuments", file=sys.stderr)
+    print(
+        f"Loaded {len(features)} monuments; processing {len(points)}",
+        file=sys.stderr,
+    )
 
     os.makedirs(os.path.dirname(CACHE_PATH), exist_ok=True)
     cache = json.load(open(CACHE_PATH, encoding="utf-8")) if os.path.exists(CACHE_PATH) else {}
 
-    road_elements = fetch_roads(points, cache)
+    roads_by_point = fetch_roads(points, cache)
     json.dump(cache, open(CACHE_PATH, "w", encoding="utf-8"))
 
-    roads_by_point = attribute_to_nearest_point(road_elements, points)
-
     n_road, n_none = 0, 0
-    for i, (feature, p) in enumerate(zip(features, points)):
+    for i, (feature_index, p) in enumerate(zip(target_indices, points)):
+        feature = features[feature_index]
         road = road_bearing_for_point(p, roads_by_point[i])
         if road is not None and road[0] <= MAX_USABLE_ROAD_DIST:
             _, azimuth, _ = road

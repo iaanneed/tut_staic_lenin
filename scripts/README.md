@@ -1,0 +1,62 @@
+# Data scripts
+
+Utilities for importing, validating, and maintaining the map data.
+
+## Scripts
+
+- `fetch_telegram_channel.py` — downloads new photo posts from the public
+  Telegram channel and creates a temporary Telegram Desktop-compatible export.
+- `parse_new_monuments.py` — parses a Telegram export, copies photos, and appends
+  new confirmed monuments to `monuments.geojson`.
+- `compute_view_bearing.py` — uses nearby OpenStreetMap roads from Overpass to
+  calculate camera bearings. By default, it only processes monuments without a
+  `viewBearing` property.
+- `prune_possible.py` — removes candidates from `possible_lenin.geojson` when
+  they are close to confirmed monuments.
+- `validate_data.py` — validates GeoJSON structure, unique Telegram source IDs,
+  coordinates, and referenced photo files.
+- `compare_geojson.py` — rebuilds the possible layer from the raw OSM dataset,
+  excluding points near confirmed monuments.
+- `merge_lenin_sources.py` — enriches or merges possible monuments with the
+  third-party Lenin dataset.
+
+Raw source files and API caches live under `scripts/raw_data/` and are not
+committed.
+
+## Telegram synchronization
+
+The `Sync Telegram monuments` workflow is started manually from the repository's
+Actions tab. It fetches posts newer than the largest committed `source_id`, runs
+the incremental processing steps, validates the result, and opens a pull
+request.
+
+Configure these repository Actions secrets:
+
+- `TELEGRAM_API_ID`
+- `TELEGRAM_API_HASH`
+- `TELEGRAM_SESSION`
+
+The API credentials come from [my.telegram.org](https://my.telegram.org/).
+Generate `TELEGRAM_SESSION` once on a trusted computer:
+
+```python
+from telethon.sessions import StringSession
+from telethon.sync import TelegramClient
+
+with TelegramClient(StringSession(), API_ID, API_HASH) as client:
+    print(client.session.save())
+```
+
+The session string represents an authorized Telegram device. Never commit or
+print it; a dedicated read-only account is recommended.
+
+Repository Actions settings must allow workflows to write contents and create
+pull requests.
+
+## Local checks
+
+```sh
+uv sync --group dev
+uv run pytest
+uv run python scripts/validate_data.py
+```

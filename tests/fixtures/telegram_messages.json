@@ -1,0 +1,32 @@
+{
+  "name": "tut_staic_lenin",
+  "type": "public_channel",
+  "messages": [
+    {
+      "id": 100,
+      "type": "message",
+      "date": "2026-08-01T12:00:00+00:00",
+      "photo": "photos/photo_100.jpg",
+      "text": "Помнік каля сельсавета\nг. Тэставы\n#Мінская #Бюст\n📍 53.9000, 27.5667",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Помнік каля сельсавета\nг. Тэставы\n#Мінская #Бюст\n📍 53.9000, 27.5667"
+        }
+      ]
+    },
+    {
+      "id": 101,
+      "type": "message",
+      "date": "2026-08-02T12:00:00+00:00",
+      "photo": "photos/photo_101.jpg",
+      "text": "Помнік без каардынат\nг. Іншы\n#Мінская",
+      "text_entities": [
+        {
+          "type": "plain",
+          "text": "Помнік без каардынат\nг. Іншы\n#Мінская"
+        }
+      ]
+    }
+  ]
+}

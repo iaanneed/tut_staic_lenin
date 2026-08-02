@@ -180,10 +180,10 @@ def parse_message(message: dict) -> dict | None:
     }
 
 
-def load_existing_monuments() -> dict:
-    if not MONUMENTS_GEOJSON.exists():
+def load_existing_monuments(path: Path = MONUMENTS_GEOJSON) -> dict:
+    if not path.exists():
         return {"type": "FeatureCollection", "features": []}
-    with open(MONUMENTS_GEOJSON, encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -207,15 +207,20 @@ def create_feature(monument_data: dict) -> dict:
     }
 
 
-def copy_photo(source_photos_dir: Path, source_filename: str, target_filename: str) -> bool:
+def copy_photo(
+    source_photos_dir: Path,
+    source_filename: str,
+    target_filename: str,
+    target_photos_dir: Path = TARGET_PHOTOS_DIR,
+) -> bool:
     source_path = source_photos_dir / source_filename
-    target_path = TARGET_PHOTOS_DIR / target_filename
+    target_path = target_photos_dir / target_filename
 
     if not source_path.exists():
         print(f"Photo not found: {source_path}")
         return False
 
-    TARGET_PHOTOS_DIR.mkdir(exist_ok=True)
+    target_photos_dir.mkdir(parents=True, exist_ok=True)
     try:
         shutil.copy2(source_path, target_path)
         print(f"Copied photo: {target_filename}")
@@ -223,6 +228,138 @@ def copy_photo(source_photos_dir: Path, source_filename: str, target_filename: s
     except OSError as e:
         print(f"Failed to copy {source_filename}: {e}")
         return False
+
+
+def ingest_export(
+    export_dir: Path,
+    *,
+    dry_run: bool = False,
+    require_coordinates: bool = False,
+    monuments_path: Path = MONUMENTS_GEOJSON,
+    target_photos_dir: Path = TARGET_PHOTOS_DIR,
+) -> list[int]:
+    """Append new monuments from a ChatExport-compatible directory.
+
+    Returns the source IDs that were actually added. Existing features are never
+    updated, which keeps repeated runs idempotent.
+    """
+    result_json = export_dir / "result.json"
+    source_photos_dir = export_dir / "photos"
+
+    print(f"Using export: {export_dir}")
+    if not result_json.exists():
+        raise FileNotFoundError(f"File not found: {result_json}")
+
+    with open(result_json, encoding="utf-8") as f:
+        data = json.load(f)
+
+    messages = data.get("messages", [])
+    print(f"Messages: {len(messages)}")
+
+    monuments = load_existing_monuments(monuments_path)
+    existing_ids = {
+        f.get("properties", {}).get("source_id") for f in monuments.get("features", [])
+    }
+    print(f"Existing monuments: {len(existing_ids)}")
+
+    new_monuments: list[dict] = []
+    skipped = {
+        "existing": 0,
+        "excluded": 0,
+        "no_city": 0,
+        "no_coordinates": 0,
+        "no_photo": 0,
+        "wrong_type": 0,
+    }
+
+    for message in messages:
+        if message.get("type") != "message":
+            skipped["wrong_type"] += 1
+            continue
+
+        if not message.get("photo"):
+            skipped["no_photo"] += 1
+            continue
+
+        monument_data = parse_message(message)
+        if not monument_data:
+            continue
+
+        source_id = monument_data["source_id"]
+        if source_id in existing_ids:
+            skipped["existing"] += 1
+            continue
+
+        if source_id in EXCLUDED_IDS:
+            print(f"Skipped {source_id}: excluded")
+            skipped["excluded"] += 1
+            continue
+
+        if not monument_data["city"]:
+            print(f"Skipped {source_id}: no city")
+            skipped["no_city"] += 1
+            continue
+
+        if require_coordinates and monument_data["coordinates"] == [0, 0]:
+            print(f"Skipped {source_id}: no coordinates")
+            skipped["no_coordinates"] += 1
+            continue
+
+        new_monuments.append(monument_data)
+
+    zero_coords = sum(1 for m in new_monuments if m.get("coordinates") == [0, 0])
+
+    print("\nStats:")
+    print(f"  skipped (already present): {skipped['existing']}")
+    print(f"  skipped (excluded): {skipped['excluded']}")
+    print(f"  skipped (no city): {skipped['no_city']}")
+    print(f"  skipped (no coordinates): {skipped['no_coordinates']}")
+    print(f"  skipped (no photo): {skipped['no_photo']}")
+    print(f"  skipped (wrong type): {skipped['wrong_type']}")
+    print(f"  new monuments: {len(new_monuments)}")
+    print(f"  with zero coordinates: {zero_coords}")
+
+    if not new_monuments:
+        print("\nNo new monuments found.")
+        return []
+
+    if dry_run:
+        print("\nDry run — nothing written.")
+        for monument in new_monuments:
+            print(
+                f"  would add: {monument['city']} "
+                f"(id={monument['source_id']}, {monument.get('regionHashtag')}, "
+                f"{monument.get('monumentType')})"
+            )
+        return []
+
+    print("\nAdding monuments...")
+    added_ids: list[int] = []
+    for monument_data in new_monuments:
+        photo_filename = monument_data["photo_filename"]
+        if copy_photo(
+            source_photos_dir,
+            photo_filename,
+            photo_filename,
+            target_photos_dir,
+        ):
+            monuments["features"].append(create_feature(monument_data))
+            added_ids.append(monument_data["source_id"])
+            hashtag = monument_data.get("regionHashtag") or "no region"
+            mtype = monument_data.get("monumentType")
+            type_info = f", {mtype}" if mtype else ""
+            print(
+                f"  Added: {monument_data['city']} "
+                f"(id={monument_data['source_id']}, {hashtag}{type_info})"
+            )
+        else:
+            print(f"  Skipped (photo copy failed): {monument_data['city']}")
+
+    with open(monuments_path, "w", encoding="utf-8") as f:
+        json.dump(monuments, f, ensure_ascii=False, indent=2)
+
+    print(f"\nDone. Added {len(added_ids)} monuments to {monuments_path}")
+    return added_ids
 
 
 def main() -> None:
@@ -240,6 +377,17 @@ def main() -> None:
         action="store_true",
         help="Parse and report only; do not write geojson or copy photos",
     )
+    parser.add_argument(
+        "--require-coordinates",
+        action="store_true",
+        help="Skip posts without valid coordinates (recommended for automation)",
+    )
+    parser.add_argument(
+        "--added-ids-output",
+        type=Path,
+        default=None,
+        help="Write added Telegram source IDs as JSON",
+    )
     args = parser.parse_args()
 
     export_dir = args.export
@@ -251,113 +399,21 @@ def main() -> None:
     elif not export_dir.is_absolute():
         export_dir = PROJECT_ROOT / export_dir
 
-    result_json = export_dir / "result.json"
-    source_photos_dir = export_dir / "photos"
+    try:
+        added_ids = ingest_export(
+            export_dir,
+            dry_run=args.dry_run,
+            require_coordinates=args.require_coordinates,
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        parser.error(str(exc))
 
-    print(f"Using export: {export_dir}")
-    if not result_json.exists():
-        print(f"File not found: {result_json}")
-        return
-
-    with open(result_json, encoding="utf-8") as f:
-        data = json.load(f)
-
-    messages = data.get("messages", [])
-    print(f"Messages: {len(messages)}")
-
-    monuments = load_existing_monuments()
-    existing_ids = {
-        f.get("properties", {}).get("source_id") for f in monuments.get("features", [])
-    }
-    print(f"Existing monuments: {len(existing_ids)}")
-
-    new_monuments: list[dict] = []
-    skipped = {
-        "existing": 0,
-        "excluded": 0,
-        "no_city": 0,
-        "no_photo": 0,
-        "wrong_type": 0,
-    }
-
-    for message in messages:
-        message_id = message.get("id", "?")
-
-        if message.get("type") != "message":
-            skipped["wrong_type"] += 1
-            continue
-
-        if not message.get("photo"):
-            skipped["no_photo"] += 1
-            continue
-
-        monument_data = parse_message(message)
-        if not monument_data:
-            continue
-
-        source_id = monument_data["source_id"]
-
-        if source_id in existing_ids:
-            skipped["existing"] += 1
-            continue
-
-        if source_id in EXCLUDED_IDS:
-            print(f"Skipped {source_id}: excluded")
-            skipped["excluded"] += 1
-            continue
-
-        if not monument_data["city"]:
-            print(f"Skipped {source_id}: no city")
-            skipped["no_city"] += 1
-            continue
-
-        new_monuments.append(monument_data)
-
-    zero_coords = sum(1 for m in new_monuments if m.get("coordinates") == [0, 0])
-
-    print("\nStats:")
-    print(f"  skipped (already present): {skipped['existing']}")
-    print(f"  skipped (excluded): {skipped['excluded']}")
-    print(f"  skipped (no city): {skipped['no_city']}")
-    print(f"  skipped (no photo): {skipped['no_photo']}")
-    print(f"  skipped (wrong type): {skipped['wrong_type']}")
-    print(f"  new monuments: {len(new_monuments)}")
-    print(f"  with zero coordinates: {zero_coords}")
-
-    if not new_monuments:
-        print("\nNo new monuments found.")
-        return
-
-    if args.dry_run:
-        print("\nDry run — nothing written.")
-        for m in new_monuments:
-            print(
-                f"  would add: {m['city']} "
-                f"(id={m['source_id']}, {m.get('regionHashtag')}, {m.get('monumentType')})"
-            )
-        return
-
-    print("\nAdding monuments...")
-    added = 0
-    for monument_data in new_monuments:
-        photo_filename = monument_data["photo_filename"]
-        if copy_photo(source_photos_dir, photo_filename, photo_filename):
-            monuments["features"].append(create_feature(monument_data))
-            added += 1
-            hashtag = monument_data.get("regionHashtag") or "no region"
-            mtype = monument_data.get("monumentType")
-            type_info = f", {mtype}" if mtype else ""
-            print(
-                f"  Added: {monument_data['city']} "
-                f"(id={monument_data['source_id']}, {hashtag}{type_info})"
-            )
-        else:
-            print(f"  Skipped (photo copy failed): {monument_data['city']}")
-
-    with open(MONUMENTS_GEOJSON, "w", encoding="utf-8") as f:
-        json.dump(monuments, f, ensure_ascii=False, indent=2)
-
-    print(f"\nDone. Added {added} monuments to {MONUMENTS_GEOJSON}")
+    if args.added_ids_output is not None:
+        args.added_ids_output.parent.mkdir(parents=True, exist_ok=True)
+        args.added_ids_output.write_text(
+            json.dumps(added_ids),
+            encoding="utf-8",
+        )
 
 
 if __name__ == "__main__":
