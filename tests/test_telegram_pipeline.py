@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from scripts import compute_view_bearing
+from scripts.build_sync_pr_body import build_body
 from scripts.compute_view_bearing import target_feature_indices
 from scripts.fetch_telegram_channel import latest_source_id, telegram_export_message
 from scripts.parse_new_monuments import ingest_export, parse_message
@@ -164,3 +165,40 @@ def test_validate_detects_duplicate_ids_and_missing_photo(tmp_path):
     errors = validate(monuments, possible, tmp_path)
     assert any("duplicate source_id" in error for error in errors)
     assert any("photo does not exist" in error for error in errors)
+
+
+def test_pr_body_lists_actual_added_and_removed_features():
+    monuments_before = {
+        "type": "FeatureCollection",
+        "features": [point_feature([27, 53], {"source_id": 1, "city": "г. Стары"})],
+    }
+    monuments_after = {
+        "type": "FeatureCollection",
+        "features": [
+            point_feature(
+                [27, 53],
+                {"source_id": 1, "city": "г. Стары", "viewBearing": 90},
+            ),
+            point_feature(
+                [28, 54],
+                {"source_id": 2, "city": "г. Новы", "title": "Помнік"},
+            ),
+        ],
+    }
+    possible_before = {
+        "type": "FeatureCollection",
+        "features": [point_feature([28, 54], {"id": "node/2", "name": "Ленін"})],
+    }
+    possible_after = {"type": "FeatureCollection", "features": []}
+
+    body = build_body(
+        monuments_before,
+        monuments_after,
+        possible_before,
+        possible_after,
+        [2],
+    )
+
+    assert "Telegram #2: г. Новы — Помнік" in body
+    assert "node/2: Ленін" in body
+    assert "Telegram #1: г. Стары — 90°" in body
