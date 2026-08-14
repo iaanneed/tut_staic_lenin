@@ -15,6 +15,8 @@ Utilities for importing, validating, and maintaining the map data.
   they are close to confirmed monuments.
 - `validate_data.py` — validates GeoJSON structure, unique Telegram source IDs,
   coordinates, and referenced photo files.
+- `build_sync_pr_body.py` — describes the monuments, possible points, and
+  bearings changed by an automated synchronization pull request.
 - `compare_geojson.py` — rebuilds the possible layer from the raw OSM dataset,
   excluding points near confirmed monuments.
 - `merge_lenin_sources.py` — enriches or merges possible monuments with the
@@ -59,4 +61,19 @@ pull requests.
 uv sync --group dev
 uv run pytest
 uv run python scripts/validate_data.py
+```
+
+## Overpass query for OSM Lenins
+
+```
+[out:json][timeout:90];
+{{geocodeArea:Belarus}}->.searchArea;
+(
+  node["historic"~"^(memorial|monument)$"]["name"~"Ленін|Ленин|Lenin",i](area.searchArea);
+  node["historic"~"^(memorial|monument)$"]["name:ru"~"Ленин",i](area.searchArea);
+  node["historic"~"^(memorial|monument)$"]["name:be"~"Ленін",i](area.searchArea);
+);
+out body;
+>;
+out skel qt;
 ```

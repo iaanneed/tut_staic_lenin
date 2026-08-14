@@ -16,14 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the default branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.repository.default_branch }}
 
       - name: Install uv and Python
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v9.0.0
         with:
           enable-cache: true
+          prune-cache: true
           python-version: "3.14"
 
       - name: Install locked dependencies
@@ -33,7 +34,10 @@ jobs:
         run: uv run pytest
 
       - name: Create temporary Telegram export
-        run: echo "TELEGRAM_EXPORT=$(mktemp -d)" >> "$GITHUB_ENV"
+        run: |
+          echo "TELEGRAM_EXPORT=$(mktemp -d)" >> "$GITHUB_ENV"
+          cp monuments.geojson "$RUNNER_TEMP/monuments-before.geojson"
+          cp possible_lenin.geojson "$RUNNER_TEMP/possible-before.geojson"
 
       - name: Fetch new Telegram posts
         env:
@@ -52,11 +56,21 @@ jobs:
       - name: Compute bearings for new monuments
         run: uv run python scripts/compute_view_bearing.py
 
-      - name: Remove confirmed points from possible layer
+      - name: Remove confirmed monuments from possible layer
         run: uv run python scripts/prune_possible.py
 
       - name: Validate generated data
         run: uv run python scripts/validate_data.py
+
+      - name: Build pull request description
+        run: >
+          uv run python scripts/build_sync_pr_body.py
+          --monuments-before "$RUNNER_TEMP/monuments-before.geojson"
+          --monuments-after monuments.geojson
+          --possible-before "$RUNNER_TEMP/possible-before.geojson"
+          --possible-after possible_lenin.geojson
+          --added-ids "$RUNNER_TEMP/added-source-ids.json"
+          --output "$RUNNER_TEMP/sync-pr-body.md"
 
       - name: Detect data changes
         id: changes
@@ -76,6 +90,7 @@ jobs:
           BRANCH_NAME: automation/telegram-sync-${{ github.run_id }}
         shell: bash
         run: |
+          PR_TITLE="Telegram sync — $(date -u +%Y-%m-%d)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$BRANCH_NAME"
@@ -85,14 +100,5 @@ jobs:
           gh pr create \
             --base "$BASE_BRANCH" \
             --head "$BRANCH_NAME" \
-            --title "Sync new Lenin monuments from Telegram" \
-            --body-file - <<'EOF'
-          ## Summary
-          - import new photo posts from the public Telegram channel
-          - compute view bearings for newly added monuments
-          - remove newly confirmed locations from the possible layer
-
-          ## Verification
-          - unit tests passed
-          - GeoJSON and referenced photos validated
-          EOF
+            --title "$PR_TITLE" \
+            --body-file "$RUNNER_TEMP/sync-pr-body.md"
