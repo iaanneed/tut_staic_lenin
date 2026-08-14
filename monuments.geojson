@@ -1341,7 +1341,8 @@
         "imageUrl_preview": "photos/photo_72@05-07-2026_23-08-26.jpg",
         "imageUrl_full": "photos/photo_72@05-07-2026_23-08-26.jpg",
         "source_id": 75,
-        "source_date": "2026-07-05T23:08:26"
+        "source_date": "2026-07-05T23:08:26",
+        "viewBearing": null
       }
     },
     {
@@ -1361,7 +1362,8 @@
         "imageUrl_preview": "photos/photo_73@30-07-2026_11-28-03.jpg",
         "imageUrl_full": "photos/photo_73@30-07-2026_11-28-03.jpg",
         "source_id": 76,
-        "source_date": "2026-07-30T11:28:03"
+        "source_date": "2026-07-30T11:28:03",
+        "viewBearing": 168.4
       }
     },
     {
@@ -1381,7 +1383,8 @@
         "imageUrl_preview": "photos/photo_74@30-07-2026_11-31-12.jpg",
         "imageUrl_full": "photos/photo_74@30-07-2026_11-31-12.jpg",
         "source_id": 77,
-        "source_date": "2026-07-30T11:31:12"
+        "source_date": "2026-07-30T11:31:12",
+        "viewBearing": 334.6
       }
     },
     {
@@ -1401,7 +1404,8 @@
         "imageUrl_preview": "photos/photo_75@30-07-2026_12-32-00.jpg",
         "imageUrl_full": "photos/photo_75@30-07-2026_12-32-00.jpg",
         "source_id": 78,
-        "source_date": "2026-07-30T12:32:00"
+        "source_date": "2026-07-30T12:32:00",
+        "viewBearing": null
       }
     },
     {
@@ -1421,7 +1425,29 @@
         "imageUrl_preview": "photos/photo_76@30-07-2026_12-33-31.jpg",
         "imageUrl_full": "photos/photo_76@30-07-2026_12-33-31.jpg",
         "source_id": 79,
-        "source_date": "2026-07-30T12:33:31"
+        "source_date": "2026-07-30T12:33:31",
+        "viewBearing": 214.9
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.410103,
+          53.885734
+        ]
+      },
+      "properties": {
+        "city": "г. Магілёў",
+        "title": null,
+        "regionHashtag": "#Магілеўская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_80@02-08-2026_22-28-29.jpg",
+        "imageUrl_full": "photos/photo_80@02-08-2026_22-28-29.jpg",
+        "source_id": 80,
+        "source_date": "2026-08-02T22:28:29+00:00",
+        "viewBearing": 131.9
       }
     }
   ]
