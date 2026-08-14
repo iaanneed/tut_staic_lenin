@@ -5,22 +5,22 @@ Utilities for importing, validating, and maintaining the map data.
 ## Scripts
 
 - `fetch_telegram_channel.py` — downloads new photo posts from the public
-  Telegram channel and creates a temporary Telegram Desktop-compatible export.
+Telegram channel and creates a temporary Telegram Desktop-compatible export.
 - `parse_new_monuments.py` — parses a Telegram export, copies photos, and appends
-  new confirmed monuments to `monuments.geojson`.
+new confirmed monuments to `monuments.geojson`.
 - `compute_view_bearing.py` — uses nearby OpenStreetMap roads from Overpass to
-  calculate camera bearings. By default, it only processes monuments without a
-  `viewBearing` property.
+calculate camera bearings. By default, it only processes monuments without a
+`viewBearing` property.
 - `prune_possible.py` — removes candidates from `possible_lenin.geojson` when
-  they are close to confirmed monuments.
+they are close to confirmed monuments.
 - `validate_data.py` — validates GeoJSON structure, unique Telegram source IDs,
-  coordinates, and referenced photo files.
+coordinates, and referenced photo files.
 - `build_sync_pr_body.py` — describes the monuments, possible points, and
-  bearings changed by an automated synchronization pull request.
+bearings changed by an automated synchronization pull request.
 - `compare_geojson.py` — rebuilds the possible layer from the raw OSM dataset,
-  excluding points near confirmed monuments.
+excluding points near confirmed monuments.
 - `merge_lenin_sources.py` — enriches or merges possible monuments with the
-  third-party Lenin dataset.
+third-party Lenin dataset.
 
 Raw source files and API caches live under `scripts/raw_data/` and are not
 committed.
@@ -61,4 +61,20 @@ pull requests.
 uv sync --group dev
 uv run pytest
 uv run python scripts/validate_data.py
+```
+
+
+
+Overpass querry for osm lenins:
+```
+[out:json][timeout:90];
+{{geocodeArea:Belarus}}->.searchArea;
+(
+  node["historic"~"^(memorial|monument)$"]["name"~"Ленін|Ленин|Lenin",i](area.searchArea);
+  node["historic"~"^(memorial|monument)$"]["name:ru"~"Ленин",i](area.searchArea);
+  node["historic"~"^(memorial|monument)$"]["name:be"~"Ленін",i](area.searchArea);
+);
+out body;
+>;
+out skel qt;
 ```

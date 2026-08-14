@@ -48,7 +48,11 @@ PARTY_FIELDS_MAP = {
     "Страна": "country_3dparty",
 }
 
-DISMANTLED_STATUS = "демонтирован"
+EXCLUDED_STATUSES = {"демонтирован", "перенесен"}
+
+
+def normalized_status(value: object) -> str:
+    return str(value or "").strip().lower().replace("ё", "е")
 
 
 def load_geojson(path: Path) -> gpd.GeoDataFrame:
@@ -121,11 +125,10 @@ def run_add_to_possible(
         ].index.unique()
     party_candidates = party_utm.loc[party_not_in_monuments_idx].copy()
 
-    # Skip dismantled entries from 3dparty
+    # Skip entries that are no longer at their source coordinates.
     if "Статус" in party_candidates.columns:
-        mask = (
-            party_candidates["Статус"].astype(str).str.strip().str.lower()
-            != DISMANTLED_STATUS
+        mask = ~party_candidates["Статус"].map(normalized_status).isin(
+            EXCLUDED_STATUSES
         )
         party_candidates = party_candidates.loc[mask]
 
@@ -187,14 +190,13 @@ def run_add_to_possible(
                 possible_out[col] = None
         possible_out = pd.concat([possible_out, new_gdf], ignore_index=True)
 
-    n_before_dismantled = len(possible_out)
+    n_before_inactive = len(possible_out)
     if "status_3dparty" in possible_out.columns:
-        dismantled = (
-            possible_out["status_3dparty"].astype(str).str.strip().str.lower()
-            == DISMANTLED_STATUS
+        inactive = possible_out["status_3dparty"].map(normalized_status).isin(
+            EXCLUDED_STATUSES
         )
-        possible_out = possible_out.loc[~dismantled]
-    n_dismantled_removed = n_before_dismantled - len(possible_out)
+        possible_out = possible_out.loc[~inactive]
+    n_inactive_removed = n_before_inactive - len(possible_out)
 
     possible_out.to_file(output_path, driver="GeoJSON")
     n_enriched = (possible_out["source"] == "osm,3dparty").sum()
@@ -210,8 +212,8 @@ def run_add_to_possible(
         f"  Excluded from 3dparty (near monuments): "
         f"{len(party3d) - len(party_utm.loc[party_not_in_monuments_idx])}"
     )
-    if n_dismantled_removed > 0:
-        print(f"  Removed dismantled: {n_dismantled_removed}")
+    if n_inactive_removed > 0:
+        print(f"  Removed dismantled or moved: {n_inactive_removed}")
 
 
 def run_report(possible: gpd.GeoDataFrame, party3d: gpd.GeoDataFrame, buffer_m: float) -> int:
