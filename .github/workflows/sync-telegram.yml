@@ -56,8 +56,11 @@ jobs:
       - name: Compute bearings for new monuments
         run: uv run python scripts/compute_view_bearing.py
 
-      - name: Remove confirmed monuments from possible layer
-        run: uv run python scripts/prune_possible.py
+      - name: Fetch OSM Lenins from Overpass
+        run: uv run python scripts/fetch_osm_lenins.py
+
+      - name: Rebuild possible layer from OSM
+        run: uv run python scripts/compare_geojson.py
 
       - name: Validate generated data
         run: uv run python scripts/validate_data.py

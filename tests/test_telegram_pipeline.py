@@ -9,9 +9,13 @@ import pytest
 from scripts import compute_view_bearing
 from scripts.build_sync_pr_body import build_body
 from scripts.compute_view_bearing import target_feature_indices
+from scripts.fetch_osm_lenins import (
+    build_overpass_query,
+    elements_to_geojson,
+    fetch_overpass_elements,
+)
 from scripts.fetch_telegram_channel import latest_source_id, telegram_export_message
 from scripts.parse_new_monuments import ingest_export, parse_message
-from scripts.prune_possible import prune_features
 from scripts.validate_data import validate
 
 FIXTURE = Path(__file__).parent / "fixtures" / "telegram_messages.json"
@@ -109,24 +113,60 @@ def test_overpass_failure_is_not_treated_as_empty_result(monkeypatch):
         compute_view_bearing.overpass_query('way["highway"];')
 
 
-def test_prune_possible_uses_source_specific_radius():
-    monuments = {
-        "type": "FeatureCollection",
-        "features": [point_feature([27.0, 53.0])],
-    }
-    possible = {
-        "type": "FeatureCollection",
-        "features": [
-            point_feature([27.0001, 53.0], {"id": "node/1"}),
-            point_feature([27.005, 53.0], {"source": "3dparty"}),
-            point_feature([27.02, 53.0], {"id": "node/2"}),
-        ],
-    }
-    output, removed = prune_features(possible, monuments)
-    assert removed == 2
-    assert [feature["properties"]["id"] for feature in output["features"]] == [
-        "node/2"
+def test_osm_lenin_query_uses_api_compatible_area():
+    query = build_overpass_query()
+    assert 'area["ISO3166-1"="BY"][admin_level=2]->.searchArea;' in query
+    assert "{{geocodeArea" not in query
+    assert 'nwr["historic"~"^(memorial|monument)$"]' in query
+    assert "subject:wikidata" not in query
+    assert "out center;" in query
+
+
+def test_elements_to_geojson_keeps_nodes_and_way_centers():
+    elements = [
+        {
+            "type": "node",
+            "id": 123,
+            "lat": 53.9,
+            "lon": 27.5,
+            "tags": {"name": "Ленін", "historic": "memorial", "memorial": "statue"},
+        },
+        {
+            "type": "way",
+            "id": 9,
+            "center": {"lat": 52.1, "lon": 29.2},
+            "tags": {
+                "historic": "memorial",
+                "name": "У.І.Ленін",
+                "name:be": "У.І.Ленін",
+                "name:ru": "В.И.Ленин",
+            },
+        },
+        {"type": "way", "id": 10, "tags": {"name": "no center"}},
+        {"type": "node", "id": 456, "tags": {"name": "no coords"}},
     ]
+    collection = elements_to_geojson(elements)
+    assert len(collection["features"]) == 2
+    node, way = collection["features"]
+    assert node["geometry"]["coordinates"] == [27.5, 53.9]
+    assert node["properties"]["@id"] == "node/123"
+    assert node["properties"]["name"] == "Ленін"
+    assert way["geometry"]["coordinates"] == [29.2, 52.1]
+    assert way["properties"]["@id"] == "way/9"
+    assert way["properties"]["name"] == "У.І.Ленін"
+
+
+def test_fetch_osm_lenins_retries_then_fails(monkeypatch):
+    from scripts import fetch_osm_lenins
+
+    def fail_request(*_args, **_kwargs):
+        raise OSError("network unavailable")
+
+    monkeypatch.setattr(fetch_osm_lenins.requests, "post", fail_request)
+    monkeypatch.setattr(fetch_osm_lenins.time, "sleep", lambda _seconds: None)
+
+    with pytest.raises(RuntimeError, match="Overpass API failed"):
+        fetch_overpass_elements("query", attempts=3, sleep=0)
 
 
 def test_validate_detects_duplicate_ids_and_missing_photo(tmp_path):

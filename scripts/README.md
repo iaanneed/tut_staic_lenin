@@ -11,16 +11,17 @@ Utilities for importing, validating, and maintaining the map data.
 - `compute_view_bearing.py` — uses nearby OpenStreetMap roads from Overpass to
   calculate camera bearings. By default, it only processes monuments without a
   `viewBearing` property.
-- `prune_possible.py` — removes candidates from `possible_lenin.geojson` when
-  they are close to confirmed monuments.
+- `fetch_osm_lenins.py` — queries Overpass for Lenin memorials in Belarus
+  (nodes, ways, and relations) and writes point features to
+  `scripts/raw_data/osm_lenin.geojson`.
+- `compare_geojson.py` — rebuilds `possible_lenin.geojson` from the raw OSM
+  dataset, excluding points near confirmed monuments.
 - `validate_data.py` — validates GeoJSON structure, unique Telegram source IDs,
   coordinates, and referenced photo files.
 - `build_sync_pr_body.py` — describes the monuments, possible points, and
   bearings changed by an automated synchronization pull request.
-- `compare_geojson.py` — rebuilds the possible layer from the raw OSM dataset,
-  excluding points near confirmed monuments.
 - `merge_lenin_sources.py` — enriches or merges possible monuments with the
-  third-party Lenin dataset.
+  third-party Lenin dataset (manual only; not part of the sync workflow).
 
 Raw source files and API caches live under `scripts/raw_data/` and are not
 committed.
@@ -28,9 +29,13 @@ committed.
 ## Telegram synchronization
 
 The `Sync Telegram monuments` workflow is started manually from the repository's
-Actions tab. It fetches posts newer than the largest committed `source_id`, runs
-the incremental processing steps, validates the result, and opens a pull
-request.
+Actions tab. It:
+
+1. Fetches Telegram posts newer than the largest committed `source_id`
+2. Appends new monuments and computes missing `viewBearing` values
+3. Fetches current OSM Lenins via Overpass and rebuilds `possible_lenin.geojson`
+4. Validates the result and opens a pull request when data changed
+
 
 Configure these repository Actions secrets:
 
@@ -65,15 +70,17 @@ uv run python scripts/validate_data.py
 
 ## Overpass query for OSM Lenins
 
+API-compatible query used by `fetch_osm_lenins.py` (no Overpass Turbo macros):
+
 ```
 [out:json][timeout:90];
-{{geocodeArea:Belarus}}->.searchArea;
+area["ISO3166-1"="BY"][admin_level=2]->.searchArea;
 (
-  node["historic"~"^(memorial|monument)$"]["name"~"Ленін|Ленин|Lenin",i](area.searchArea);
-  node["historic"~"^(memorial|monument)$"]["name:ru"~"Ленин",i](area.searchArea);
-  node["historic"~"^(memorial|monument)$"]["name:be"~"Ленін",i](area.searchArea);
+  nwr["historic"~"^(memorial|monument)$"]["name"~"Ленін|Ленин|Lenin",i](area.searchArea);
+  nwr["historic"~"^(memorial|monument)$"]["name:ru"~"Ленин",i](area.searchArea);
+  nwr["historic"~"^(memorial|monument)$"]["name:be"~"Ленін",i](area.searchArea);
 );
-out body;
->;
-out skel qt;
+out center;
 ```
+
+Ways and relations are stored as their Overpass `center` point.
