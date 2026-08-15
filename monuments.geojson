@@ -1449,6 +1449,27 @@
         "source_date": "2026-08-02T22:28:29+00:00",
         "viewBearing": 131.9
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.217486,
+          53.458273
+        ]
+      },
+      "properties": {
+        "city": "г. Узда",
+        "title": "суперстыльны колер пастаменту",
+        "regionHashtag": "#Мінская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_81@15-08-2026_13-14-38.jpg",
+        "imageUrl_full": "photos/photo_81@15-08-2026_13-14-38.jpg",
+        "source_id": 81,
+        "source_date": "2026-08-15T13:14:38+00:00",
+        "viewBearing": 293.7
+      }
     }
   ]
 }
