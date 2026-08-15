@@ -1,3 +1,5 @@
+import * as maplibregl from 'https://unpkg.com/maplibre-gl@6.3.0/dist/maplibre-gl.mjs';
+
 const WIDE_BELARUS_BOUNDS = [16.884785,40.931153,38.198261,61.407894];
 const BELARUS_BOUNDS = [23.17, 51.25, 32.77, 56.17];
 
@@ -317,6 +319,9 @@ map.on('load', async () => {
                 ],
                 'fill-extrusion-opacity': 0.85,
                 'fill-extrusion-vertical-gradient': true
+            },
+            layout: {
+                'fill-extrusion-rounded-corner-distance': 0.4
             }
         };
         if (labelLayerId) {
