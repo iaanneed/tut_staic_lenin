@@ -321,7 +321,7 @@ map.on('load', async () => {
                 'fill-extrusion-vertical-gradient': true
             },
             layout: {
-                'fill-extrusion-rounded-corner-distance': 1
+                'fill-extrusion-rounded-corner-distance': 0.4
             }
         };
         if (labelLayerId) {
