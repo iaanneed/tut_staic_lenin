@@ -90,7 +90,7 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          26.172750,
+          26.17275,
           53.650662
         ]
       },
@@ -103,7 +103,7 @@
         "imageUrl_full": "photos/photo_6@17-03-2024_14-30-08.jpg",
         "source_id": 7,
         "source_date": "2024-03-17T14:30:08",
-        "viewBearing": 221.2
+        "viewBearing": 220.5
       }
     },
     {
@@ -1195,7 +1195,7 @@
         "imageUrl_full": "photos/photo_64@08-11-2025_17-01-09.jpg",
         "source_id": 67,
         "source_date": "2025-11-08T17:01:09",
-        "viewBearing": 264.6
+        "viewBearing": 84.6
       }
     },
     {
