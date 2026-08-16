@@ -1470,6 +1470,27 @@
         "source_date": "2026-08-15T13:14:38+00:00",
         "viewBearing": 293.7
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.091543,
+          53.152597
+        ]
+      },
+      "properties": {
+        "city": "г. Капыль",
+        "title": null,
+        "regionHashtag": "#Мінская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_82@16-08-2026_16-29-52.jpg",
+        "imageUrl_full": "photos/photo_82@16-08-2026_16-29-52.jpg",
+        "source_id": 82,
+        "source_date": "2026-08-16T16:29:52+00:00",
+        "viewBearing": 59.6
+      }
     }
   ]
 }
