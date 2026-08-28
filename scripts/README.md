@@ -13,7 +13,8 @@ Utilities for importing, validating, and maintaining the map data.
   `viewBearing` property.
 - `fetch_osm_lenins.py` — queries Overpass for Lenin memorials in Belarus
   (nodes, ways, and relations) and writes point features to
-  `scripts/raw_data/osm_lenin.geojson`.
+  `scripts/raw_data/osm_lenin.geojson`. Its `write_geojson` helper sorts and
+  indents generated collections and is reused for the possible layer.
 - `compare_geojson.py` — rebuilds `possible_lenin.geojson` from the raw OSM
   dataset, excluding points near confirmed monuments.
 - `validate_data.py` — validates GeoJSON structure, unique Telegram source IDs,
@@ -35,6 +36,11 @@ Actions tab. It:
 2. Appends new monuments and computes missing `viewBearing` values
 3. Fetches current OSM Lenins via Overpass and rebuilds `possible_lenin.geojson`
 4. Validates the result and opens a pull request when data changed
+
+The pull request description lists the added monuments, the OSM candidates added
+to and removed from the possible layer, and the recomputed bearings. Overpass
+returns features in an unstable order, so generated files are sorted before they
+are written; without that, every rebuild would rewrite the whole file.
 
 
 Configure these repository Actions secrets:

@@ -17,6 +17,17 @@ def clean_text(value, fallback: str) -> str:
     return text or fallback
 
 
+MAX_POSSIBLE_LINES = 25
+OSM_TYPES = ("node", "way", "relation")
+
+
+def osm_link(identifier: str) -> str:
+    osm_type, _, raw_id = identifier.partition("/")
+    if osm_type in OSM_TYPES and raw_id.isdigit():
+        return f"[{identifier}](https://www.openstreetmap.org/{osm_type}/{raw_id})"
+    return identifier
+
+
 def possible_key(feature: dict) -> str:
     properties = feature.get("properties", {})
     if properties.get("id"):
@@ -27,6 +38,26 @@ def possible_key(feature: dict) -> str:
         ensure_ascii=False,
         separators=(",", ":"),
     )
+
+
+def possible_line(feature: dict) -> str:
+    properties = feature.get("properties", {})
+    identifier = clean_text(properties.get("id"), "coordinate candidate")
+    name = clean_text(
+        properties.get("name") or properties.get("title_3dparty"),
+        "Lenin candidate",
+    )
+    coordinates = (feature.get("geometry") or {}).get("coordinates") or []
+    if len(coordinates) >= 2:
+        return f"- {osm_link(identifier)}: {name} ({coordinates[1]}, {coordinates[0]})"
+    return f"- {osm_link(identifier)}: {name}"
+
+
+def truncate(lines: list[str], limit: int = MAX_POSSIBLE_LINES) -> list[str]:
+    if len(lines) <= limit:
+        return lines
+    hidden = len(lines) - limit
+    return [*lines[:limit], f"- …and {hidden} more."]
 
 
 def build_body(
@@ -71,29 +102,43 @@ def build_body(
         bearing = "none found" if value is None else f"{value}°"
         bearing_lines.append(f"- Telegram #{source_id}: {city} — {bearing}")
 
+    before_possible_keys = {
+        possible_key(feature) for feature in possible_before.get("features", [])
+    }
     after_possible_keys = {
         possible_key(feature) for feature in possible_after.get("features", [])
     }
-    removed_lines = []
-    for feature in possible_before.get("features", []):
-        if possible_key(feature) in after_possible_keys:
-            continue
-        properties = feature.get("properties", {})
-        identifier = clean_text(properties.get("id"), "coordinate candidate")
-        name = clean_text(
-            properties.get("name") or properties.get("title_3dparty"),
-            "Lenin candidate",
-        )
-        removed_lines.append(f"- {identifier}: {name}")
+    removed_lines = [
+        possible_line(feature)
+        for feature in possible_before.get("features", [])
+        if possible_key(feature) not in after_possible_keys
+    ]
+    added_possible_lines = [
+        possible_line(feature)
+        for feature in possible_after.get("features", [])
+        if possible_key(feature) not in before_possible_keys
+    ]
+
+    possible_before_count = len(possible_before.get("features", []))
+    possible_after_count = len(possible_after.get("features", []))
 
     sections = [
-        "This PR synchronizes the map with the latest Telegram channel posts.",
+        "This PR synchronizes the map with the latest Telegram channel posts",
+        "and rebuilds the possible layer from OpenStreetMap.",
         "",
         "## Added monuments",
         *(added_lines or ["- None."]),
         "",
-        "## Removed from the possible layer",
-        *(removed_lines or ["- None."]),
+        (
+            f"## Possible layer: {possible_before_count} → {possible_after_count} "
+            f"(+{len(added_possible_lines)} / −{len(removed_lines)})"
+        ),
+        "",
+        "### Added from OpenStreetMap",
+        *(truncate(added_possible_lines) or ["- None."]),
+        "",
+        "### Removed from the possible layer",
+        *(truncate(removed_lines) or ["- None."]),
     ]
     if bearing_lines:
         sections.extend(["", "## Updated view bearings", *bearing_lines])

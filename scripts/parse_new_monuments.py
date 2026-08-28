@@ -83,6 +83,8 @@ def extract_city_from_text(text: str) -> str | None:
         (r"п\.\s*([А-Яа-яЁёІіЎў][^\n,]*)", "п. {}"),
         (r"Ст\.\s*([А-Яа-яЁёІіЎў][^\n,]*)", "Ст. {}"),
         (r"г\.\s*([А-Яа-яЁёІіЎў][^\n,]*)", "г. {}"),
+        # {2,} avoids matching initials like "В. І. Ленін" / "В.И. Ленин"
+        (r"в\.\s*([А-Яа-яЁёІіЎў]{2,}[^\n,]*)", "в. {}"),
     ]
 
     for pattern, template in patterns:
@@ -119,7 +121,11 @@ def extract_title_from_text(text: str) -> str | None:
         line = line.strip()
         if not line:
             continue
-        if re.match(r"^г\.|^г\.п\.|^аг\.|^п\.|^Ст\.|^#|^📍", line, re.IGNORECASE):
+        if re.match(
+            r"^г\.|^г\.п\.|^аг\.|^п\.|^Ст\.|^в\.\s*[А-Яа-яЁёІіЎў]{2,}|^#|^📍",
+            line,
+            re.IGNORECASE,
+        ):
             break
         if re.match(r"^\d+\.\d+,\s*\d+\.\d+", line):
             continue
