@@ -118,6 +118,63 @@ def test_ingest_export_is_incremental_and_requires_coordinates(tmp_path):
     )
 
 
+def test_ingest_prompts_for_missing_coordinates(tmp_path):
+    export_dir = tmp_path / "export"
+    photos_dir = export_dir / "photos"
+    photos_dir.mkdir(parents=True)
+    shutil.copy(FIXTURE, export_dir / "result.json")
+    (photos_dir / "photo_100.jpg").write_bytes(b"photo")
+    (photos_dir / "photo_101.jpg").write_bytes(b"photo")
+
+    monuments_path = tmp_path / "monuments.geojson"
+    monuments_path.write_text(
+        '{"type":"FeatureCollection","features":[]}',
+        encoding="utf-8",
+    )
+    target_photos = tmp_path / "photos"
+    prompts: list[str] = []
+
+    def input_fn(message: str) -> str:
+        prompts.append(message)
+        return "53.9, 27.5"
+
+    added = ingest_export(
+        export_dir,
+        monuments_path=monuments_path,
+        target_photos_dir=target_photos,
+        input_fn=input_fn,
+    )
+    assert added == [100, 101]
+    assert any("Telegram #101" in message for message in prompts)
+
+    features = json.loads(monuments_path.read_text(encoding="utf-8"))["features"]
+    by_id = {f["properties"]["source_id"]: f for f in features}
+    assert by_id[101]["geometry"]["coordinates"] == [27.5, 53.9]
+
+
+def test_ingest_skips_when_coordinate_prompt_is_empty(tmp_path):
+    export_dir = tmp_path / "export"
+    photos_dir = export_dir / "photos"
+    photos_dir.mkdir(parents=True)
+    shutil.copy(FIXTURE, export_dir / "result.json")
+    (photos_dir / "photo_100.jpg").write_bytes(b"photo")
+    (photos_dir / "photo_101.jpg").write_bytes(b"photo")
+
+    monuments_path = tmp_path / "monuments.geojson"
+    monuments_path.write_text(
+        '{"type":"FeatureCollection","features":[]}',
+        encoding="utf-8",
+    )
+
+    added = ingest_export(
+        export_dir,
+        monuments_path=monuments_path,
+        target_photos_dir=tmp_path / "photos",
+        input_fn=lambda _message: "",
+    )
+    assert added == [100]
+
+
 def test_bearing_targets_only_features_without_property():
     features = [
         point_feature([27, 53], {"viewBearing": 90}),

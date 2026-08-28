@@ -37,11 +37,14 @@ Actions tab. It:
 3. Fetches current OSM Lenins via Overpass and rebuilds `possible_lenin.geojson`
 4. Validates the result and opens a pull request when data changed
 
-The pull request description lists the added monuments, the OSM candidates added
-to and removed from the possible layer, and the recomputed bearings. Overpass
-returns features in an unstable order, so generated files are sorted before they
-are written; without that, every rebuild would rewrite the whole file.
+To re-parse Telegram locally, drop a Telegram Desktop ChatExport into
+`scripts/raw_data/` and run:
 
+```sh
+uv run python scripts/parse_new_monuments.py
+uv run python scripts/compute_view_bearing.py
+uv run python scripts/validate_data.py
+```
 
 Configure these repository Actions secrets:
 
