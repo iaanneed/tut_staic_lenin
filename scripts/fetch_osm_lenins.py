@@ -114,12 +114,35 @@ def fetch_overpass_elements(
     raise RuntimeError("Overpass API failed after 3 attempts") from last_error
 
 
+def feature_sort_key(feature: dict) -> tuple:
+    """Order by OSM type and numeric id, falling back to coordinates."""
+    properties = feature.get("properties") or {}
+    identifier = str(properties.get("@id") or properties.get("id") or "")
+    osm_type, _, raw_id = identifier.rpartition("/")
+    coordinates = (feature.get("geometry") or {}).get("coordinates") or [0, 0]
+    return (
+        osm_type,
+        int(raw_id) if raw_id.isdigit() else 0,
+        identifier,
+        coordinates[0],
+        coordinates[1],
+    )
+
+
+def dumps_geojson(collection: dict) -> str:
+    """Serialize a collection deterministically, one JSON token per line.
+
+    Overpass returns elements in an unstable order, so sorting is what keeps a
+    rebuild from rewriting the whole file when nothing actually changed.
+    """
+    output = dict(collection)
+    output["features"] = sorted(collection.get("features", []), key=feature_sort_key)
+    return json.dumps(output, ensure_ascii=False, indent=2) + "\n"
+
+
 def write_geojson(path: Path, collection: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(collection, ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8",
-    )
+    path.write_text(dumps_geojson(collection), encoding="utf-8")
 
 
 def main() -> None:

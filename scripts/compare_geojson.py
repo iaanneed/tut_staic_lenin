@@ -6,12 +6,16 @@ Drops OSM features within BUFFER_METERS of any confirmed monument,
 plus a hard-coded EXCLUDED_IDS list. Keeps only fields used by the map UI.
 """
 
-import json
 from pathlib import Path
 
 import geopandas as gpd
 import pandas as pd
 from shapely.ops import unary_union
+
+try:
+    from scripts.fetch_osm_lenins import write_geojson
+except ImportError:  # running the script directly, without the package on sys.path
+    from fetch_osm_lenins import write_geojson
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 RAW_DATA_DIR = PROJECT_ROOT / "scripts" / "raw_data"
@@ -134,8 +138,7 @@ def main() -> None:
 
     slim = to_slim_geojson(filtered_gdf)
     print(f"Writing slim {OUTPUT_FILE} ({len(slim['features'])} features)...")
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(slim, f, ensure_ascii=False, separators=(",", ":"))
+    write_geojson(OUTPUT_FILE, slim)
 
     size_kb = OUTPUT_FILE.stat().st_size / 1024
     print("\nDone.")

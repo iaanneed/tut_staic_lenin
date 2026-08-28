@@ -83,6 +83,8 @@ def extract_city_from_text(text: str) -> str | None:
         (r"п\.\s*([А-Яа-яЁёІіЎў][^\n,]*)", "п. {}"),
         (r"Ст\.\s*([А-Яа-яЁёІіЎў][^\n,]*)", "Ст. {}"),
         (r"г\.\s*([А-Яа-яЁёІіЎў][^\n,]*)", "г. {}"),
+        # {2,} avoids matching initials like "В. І. Ленін" / "В.И. Ленин"
+        (r"в\.\s*([А-Яа-яЁёІіЎў]{2,}[^\n,]*)", "в. {}"),
     ]
 
     for pattern, template in patterns:
@@ -119,7 +121,11 @@ def extract_title_from_text(text: str) -> str | None:
         line = line.strip()
         if not line:
             continue
-        if re.match(r"^г\.|^г\.п\.|^аг\.|^п\.|^Ст\.|^#|^📍", line, re.IGNORECASE):
+        if re.match(
+            r"^г\.|^г\.п\.|^аг\.|^п\.|^Ст\.|^в\.\s*[А-Яа-яЁёІіЎў]{2,}|^#|^📍",
+            line,
+            re.IGNORECASE,
+        ):
             break
         if re.match(r"^\d+\.\d+,\s*\d+\.\d+", line):
             continue
@@ -230,6 +236,26 @@ def copy_photo(
         return False
 
 
+def prompt_for_coordinates(monument: dict, input_fn) -> list[float] | None:
+    """Ask for lat, lon on stdin. Empty input skips the post."""
+    city = monument.get("city") or "?"
+    title = monument.get("title")
+    hint = f"{city} — {title}" if title else city
+    prompt = (
+        f"No coordinates for Telegram #{monument['source_id']} ({hint}). "
+        "Add lat, lon to the post, or paste them here (empty to skip): "
+    )
+    while True:
+        raw = input_fn(prompt)
+        if raw is None or not str(raw).strip():
+            return None
+        coordinates = extract_coordinates_from_text(str(raw).strip())
+        if coordinates is not None:
+            return coordinates
+        print(f"  Could not parse coordinates: {raw}")
+        prompt = "Try again (lat, lon), or empty to skip: "
+
+
 def ingest_export(
     export_dir: Path,
     *,
@@ -237,6 +263,7 @@ def ingest_export(
     require_coordinates: bool = False,
     monuments_path: Path = MONUMENTS_GEOJSON,
     target_photos_dir: Path = TARGET_PHOTOS_DIR,
+    input_fn=None,
 ) -> list[int]:
     """Append new monuments from a ChatExport-compatible directory.
 
@@ -300,14 +327,19 @@ def ingest_export(
             skipped["no_city"] += 1
             continue
 
-        if require_coordinates and monument_data["coordinates"] == [0, 0]:
-            print(f"Skipped {source_id}: no coordinates")
-            skipped["no_coordinates"] += 1
-            continue
+        if monument_data["coordinates"] == [0, 0]:
+            if require_coordinates or dry_run or input_fn is None:
+                print(f"Skipped {source_id}: no coordinates")
+                skipped["no_coordinates"] += 1
+                continue
+            coordinates = prompt_for_coordinates(monument_data, input_fn)
+            if coordinates is None:
+                print(f"Skipped {source_id}: no coordinates")
+                skipped["no_coordinates"] += 1
+                continue
+            monument_data["coordinates"] = coordinates
 
         new_monuments.append(monument_data)
-
-    zero_coords = sum(1 for m in new_monuments if m.get("coordinates") == [0, 0])
 
     print("\nStats:")
     print(f"  skipped (already present): {skipped['existing']}")
@@ -317,7 +349,6 @@ def ingest_export(
     print(f"  skipped (no photo): {skipped['no_photo']}")
     print(f"  skipped (wrong type): {skipped['wrong_type']}")
     print(f"  new monuments: {len(new_monuments)}")
-    print(f"  with zero coordinates: {zero_coords}")
 
     if not new_monuments:
         print("\nNo new monuments found.")
@@ -380,7 +411,7 @@ def main() -> None:
     parser.add_argument(
         "--require-coordinates",
         action="store_true",
-        help="Skip posts without valid coordinates (recommended for automation)",
+        help="Skip posts without coordinates instead of prompting (for automation)",
     )
     parser.add_argument(
         "--added-ids-output",
@@ -404,6 +435,7 @@ def main() -> None:
             export_dir,
             dry_run=args.dry_run,
             require_coordinates=args.require_coordinates,
+            input_fn=None if args.require_coordinates or args.dry_run else input,
         )
     except (OSError, json.JSONDecodeError) as exc:
         parser.error(str(exc))

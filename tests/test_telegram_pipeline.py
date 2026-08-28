@@ -15,6 +15,7 @@ from scripts.fetch_osm_lenins import (
     fetch_overpass_elements,
 )
 from scripts.fetch_telegram_channel import latest_source_id, telegram_export_message
+from scripts.fetch_osm_lenins import dumps_geojson, write_geojson
 from scripts.parse_new_monuments import ingest_export, parse_message
 from scripts.validate_data import validate
 
@@ -38,6 +39,31 @@ def test_telegram_adapter_matches_export_schema():
     )
     assert parse_message(message)["source_id"] == 123
     assert parse_message(message)["city"] == "г. Мінск"
+
+
+def test_parse_message_accepts_village_prefix():
+    message = telegram_export_message(
+        200,
+        "2026-08-01T12:00:00+00:00",
+        "Помнік каля школы\nв. Заброддзе\n#Мінская\n📍 53.9000, 27.5667",
+        "photos/photo.jpg",
+    )
+    parsed = parse_message(message)
+    assert parsed["city"] == "в. Заброддзе"
+    assert parsed["title"] == "Помнік каля школы"
+    assert parsed["coordinates"] == [27.5667, 53.9]
+
+
+def test_village_prefix_does_not_eat_lenin_initials():
+    message = telegram_export_message(
+        201,
+        "2026-08-01T12:00:00+00:00",
+        "В. І. Ленін на сваім сходзе\nг. Смалявічы\n#Мінская\n📍 54.0000, 28.0000",
+        "photos/photo.jpg",
+    )
+    parsed = parse_message(message)
+    assert parsed["city"] == "г. Смалявічы"
+    assert parsed["title"] == "В. І. Ленін на сваім сходзе"
 
 
 def test_latest_source_id_uses_committed_monuments(tmp_path):
@@ -90,6 +116,63 @@ def test_ingest_export_is_incremental_and_requires_coordinates(tmp_path):
         )
         == []
     )
+
+
+def test_ingest_prompts_for_missing_coordinates(tmp_path):
+    export_dir = tmp_path / "export"
+    photos_dir = export_dir / "photos"
+    photos_dir.mkdir(parents=True)
+    shutil.copy(FIXTURE, export_dir / "result.json")
+    (photos_dir / "photo_100.jpg").write_bytes(b"photo")
+    (photos_dir / "photo_101.jpg").write_bytes(b"photo")
+
+    monuments_path = tmp_path / "monuments.geojson"
+    monuments_path.write_text(
+        '{"type":"FeatureCollection","features":[]}',
+        encoding="utf-8",
+    )
+    target_photos = tmp_path / "photos"
+    prompts: list[str] = []
+
+    def input_fn(message: str) -> str:
+        prompts.append(message)
+        return "53.9, 27.5"
+
+    added = ingest_export(
+        export_dir,
+        monuments_path=monuments_path,
+        target_photos_dir=target_photos,
+        input_fn=input_fn,
+    )
+    assert added == [100, 101]
+    assert any("Telegram #101" in message for message in prompts)
+
+    features = json.loads(monuments_path.read_text(encoding="utf-8"))["features"]
+    by_id = {f["properties"]["source_id"]: f for f in features}
+    assert by_id[101]["geometry"]["coordinates"] == [27.5, 53.9]
+
+
+def test_ingest_skips_when_coordinate_prompt_is_empty(tmp_path):
+    export_dir = tmp_path / "export"
+    photos_dir = export_dir / "photos"
+    photos_dir.mkdir(parents=True)
+    shutil.copy(FIXTURE, export_dir / "result.json")
+    (photos_dir / "photo_100.jpg").write_bytes(b"photo")
+    (photos_dir / "photo_101.jpg").write_bytes(b"photo")
+
+    monuments_path = tmp_path / "monuments.geojson"
+    monuments_path.write_text(
+        '{"type":"FeatureCollection","features":[]}',
+        encoding="utf-8",
+    )
+
+    added = ingest_export(
+        export_dir,
+        monuments_path=monuments_path,
+        target_photos_dir=tmp_path / "photos",
+        input_fn=lambda _message: "",
+    )
+    assert added == [100]
 
 
 def test_bearing_targets_only_features_without_property():
@@ -229,7 +312,10 @@ def test_pr_body_lists_actual_added_and_removed_features():
         "type": "FeatureCollection",
         "features": [point_feature([28, 54], {"id": "node/2", "name": "Ленін"})],
     }
-    possible_after = {"type": "FeatureCollection", "features": []}
+    possible_after = {
+        "type": "FeatureCollection",
+        "features": [point_feature([29, 55], {"id": "node/7", "name": "Ільіч"})],
+    }
 
     body = build_body(
         monuments_before,
@@ -240,5 +326,51 @@ def test_pr_body_lists_actual_added_and_removed_features():
     )
 
     assert "Telegram #2: г. Новы — Помнік" in body
-    assert "node/2: Ленін" in body
+    assert "[node/2](https://www.openstreetmap.org/node/2): Ленін (54, 28)" in body
+    assert "[node/7](https://www.openstreetmap.org/node/7): Ільіч (55, 29)" in body
+    assert "Possible layer: 1 → 1 (+1 / −1)" in body
     assert "Telegram #1: г. Стары — 90°" in body
+
+
+def test_pr_body_truncates_long_possible_lists():
+    possible_after = {
+        "type": "FeatureCollection",
+        "features": [
+            point_feature([27, 53], {"id": f"node/{index}", "name": "Ленін"})
+            for index in range(40)
+        ],
+    }
+    empty = {"type": "FeatureCollection", "features": []}
+
+    body = build_body(empty, empty, empty, possible_after, [])
+
+    assert "- …and 15 more." in body
+
+
+def test_generated_geojson_is_sorted_and_line_diffable(tmp_path):
+    collection = {
+        "type": "FeatureCollection",
+        "features": [
+            point_feature([27, 53], {"id": "node/20"}),
+            point_feature([28, 54], {"id": "way/3"}),
+            point_feature([29, 55], {"id": "node/3"}),
+        ],
+    }
+    path = tmp_path / "possible.geojson"
+    write_geojson(path, collection)
+
+    text = path.read_text(encoding="utf-8")
+    written = json.loads(text)
+    assert [f["properties"]["id"] for f in written["features"]] == [
+        "node/3",
+        "node/20",
+        "way/3",
+    ]
+    assert text.endswith("\n")
+    assert text.count("\n") > len(collection["features"])
+
+    reversed_collection = {
+        "type": "FeatureCollection",
+        "features": list(reversed(collection["features"])),
+    }
+    assert dumps_geojson(reversed_collection) == text

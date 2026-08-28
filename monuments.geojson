@@ -678,8 +678,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          30.976642,
-          52.35035
+          30.972596,
+          52.347925
         ]
       },
       "properties": {
@@ -699,8 +699,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          27.847645,
-          54.200334
+          30.9725959,
+          52.3479246
         ]
       },
       "properties": {
@@ -1490,6 +1490,48 @@
         "source_id": 82,
         "source_date": "2026-08-16T16:29:52+00:00",
         "viewBearing": 59.6
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.226488,
+          53.400449
+        ]
+      },
+      "properties": {
+        "city": "в. Бацэвічы",
+        "title": "Бліскучы Ленін сярод аблокаў",
+        "regionHashtag": "#Магілеўская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_68@13-04-2026_14-29-50.jpg",
+        "imageUrl_full": "photos/photo_68@13-04-2026_14-29-50.jpg",
+        "source_id": 71,
+        "source_date": "2026-04-13T14:29:50",
+        "viewBearing": 211.7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.796897,
+          54.176239
+        ]
+      },
+      "properties": {
+        "city": "в. Верагі",
+        "title": "сідзячы!",
+        "regionHashtag": "#Мінская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_80@21-08-2026_23-25-06.jpg",
+        "imageUrl_full": "photos/photo_80@21-08-2026_23-25-06.jpg",
+        "source_id": 83,
+        "source_date": "2026-08-21T23:25:06",
+        "viewBearing": null
       }
     }
   ]
