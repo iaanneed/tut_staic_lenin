@@ -1533,6 +1533,48 @@
         "source_date": "2026-08-21T23:25:06",
         "viewBearing": null
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.002073,
+          52.791624
+        ]
+      },
+      "properties": {
+        "city": "г. Любань",
+        "title": "Ленін рыхтуе прамову для шахцёраў Любані ў дзень шахцёраў.",
+        "regionHashtag": "#Мінская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_84@30-08-2026_19-08-03.jpg",
+        "imageUrl_full": "photos/photo_84@30-08-2026_19-08-03.jpg",
+        "source_id": 84,
+        "source_date": "2026-08-30T19:08:03+00:00",
+        "viewBearing": 14.3
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.540551,
+          52.783311
+        ]
+      },
+      "properties": {
+        "city": "г. Салігорск",
+        "title": "Вялізарны, як тэрыконы, бюст Леніна.",
+        "regionHashtag": "#Мінская",
+        "monumentType": "#Бюст",
+        "imageUrl_preview": "photos/photo_85@30-08-2026_19-10-56.jpg",
+        "imageUrl_full": "photos/photo_85@30-08-2026_19-10-56.jpg",
+        "source_id": 85,
+        "source_date": "2026-08-30T19:10:56+00:00",
+        "viewBearing": null
+      }
     }
   ]
 }
