@@ -16,9 +16,16 @@ Utilities for importing, validating, and maintaining the map data.
   `scripts/raw_data/osm_lenin.geojson`. Its `write_geojson` helper sorts and
   indents generated collections and is reused for the possible layer.
 - `compare_geojson.py` — rebuilds `possible_lenin.geojson` from the raw OSM
-  dataset, excluding points near confirmed monuments.
+  dataset, excluding points near confirmed monuments. Existing `city` values
+  are copied by OSM `id`.
+- `reverse_geocode_cities.py` — reverse-geocodes missing `city` fields via
+  Nominatim (`accept-language=be`). Villages use `address.village` → `в.`.
+  Cities use `address.city` → `г.`. Towns need a second reverse at zoom 12
+  because OSM `place=town` covers both a city (`name:prefix=горад` → `г.`)
+  and an urban settlement (`гарадскі пасёлак` → `г.п.`). Already filled
+  cities are skipped; `--force` rewrites them.
 - `validate_data.py` — validates GeoJSON structure, unique Telegram source IDs,
-  coordinates, and referenced photo files.
+  coordinates, possible-layer cities, and referenced photo files.
 - `build_sync_pr_body.py` — describes the monuments, possible points, and
   bearings changed by an automated synchronization pull request.
 - `merge_lenin_sources.py` — enriches or merges possible monuments with the
@@ -35,7 +42,8 @@ Actions tab. It:
 1. Fetches Telegram posts newer than the largest committed `source_id`
 2. Appends new monuments and computes missing `viewBearing` values
 3. Fetches current OSM Lenins via Overpass and rebuilds `possible_lenin.geojson`
-4. Validates the result and opens a pull request when data changed
+4. Reverse-geocodes `city` only for new possible points (Nominatim, ≤1 req/s)
+5. Validates the result and opens a pull request when data changed
 
 To re-parse Telegram locally, drop a Telegram Desktop ChatExport into
 `scripts/raw_data/` and run:
@@ -43,8 +51,27 @@ To re-parse Telegram locally, drop a Telegram Desktop ChatExport into
 ```sh
 uv run python scripts/parse_new_monuments.py
 uv run python scripts/compute_view_bearing.py
+uv run python scripts/reverse_geocode_cities.py
 uv run python scripts/validate_data.py
 ```
+
+First city backfill (and later local fills) — public Nominatim, one request per
+second, identifiable User-Agent, results written into `possible_lenin.geojson`:
+
+```sh
+uv run python scripts/reverse_geocode_cities.py
+```
+
+Interrupted runs resume: features that already have `city` are not requested
+again. To rebuild prefixes after a geocoder change:
+
+```sh
+uv run python scripts/reverse_geocode_cities.py --force
+```
+
+Override the endpoint with `NOMINATIM_URL` or `--nominatim-url` if you use
+another Nominatim instance. Do not raise the rate above 1 request/s against
+the public service.
 
 Configure these repository Actions secrets:
 
@@ -74,8 +101,11 @@ pull requests.
 ```sh
 uv sync --group dev
 uv run pytest
+uv run python scripts/reverse_geocode_cities.py
 uv run python scripts/validate_data.py
 ```
+
+`validate_data.py` requires a non-empty `city` on every possible point. Fill those first with the reverse-geocode script.
 
 ## Overpass query for OSM Lenins
 

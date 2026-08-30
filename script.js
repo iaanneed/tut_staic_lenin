@@ -537,6 +537,7 @@ function openSidebarForPossible(feature) {
                 <header class="card-header">
                     <h2>${name}</h2>
                 </header>
+                ${properties.city ? `<div class="card-body"><p>${properties.city}</p></div>` : ''}
                 
                 <div class="card-body">
                     <div class="coordinates-label-row">

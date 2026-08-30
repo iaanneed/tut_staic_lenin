@@ -62,6 +62,9 @@ jobs:
       - name: Rebuild possible layer from OSM
         run: uv run python scripts/compare_geojson.py
 
+      - name: Reverse-geocode cities for new possible points
+        run: uv run python scripts/reverse_geocode_cities.py
+
       - name: Validate generated data
         run: uv run python scripts/validate_data.py
 

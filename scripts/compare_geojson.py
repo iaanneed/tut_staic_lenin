@@ -6,6 +6,7 @@ Drops OSM features within BUFFER_METERS of any confirmed monument,
 plus a hard-coded EXCLUDED_IDS list. Keeps only fields used by the map UI.
 """
 
+import json
 from pathlib import Path
 
 import geopandas as gpd
@@ -59,6 +60,43 @@ def feature_id(row: pd.Series) -> str | None:
         if value is not None and not (isinstance(value, float) and pd.isna(value)):
             return str(value)
     return None
+
+
+def existing_cities(path: Path) -> dict[str, str]:
+    """Map OSM id → city from a previously written possible layer."""
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    cities: dict[str, str] = {}
+    for feature in data.get("features") or []:
+        properties = feature.get("properties") or {}
+        identifier = properties.get("id")
+        city = properties.get("city")
+        if identifier and isinstance(city, str) and city.strip():
+            cities[str(identifier)] = city.strip()
+    return cities
+
+
+def apply_existing_cities(collection: dict, cities: dict[str, str]) -> dict:
+    """Copy cached cities onto matching features; leave new ids without city."""
+    for feature in collection.get("features") or []:
+        properties = feature.get("properties") or {}
+        identifier = properties.get("id")
+        city = cities.get(str(identifier)) if identifier else None
+        ordered: dict[str, str] = {}
+        if properties.get("id") is not None:
+            ordered["id"] = properties["id"]
+        if properties.get("name") is not None:
+            ordered["name"] = properties["name"]
+        if city:
+            ordered["city"] = city
+        if properties.get("memorial") is not None:
+            ordered["memorial"] = properties["memorial"]
+        feature["properties"] = ordered
+    return collection
 
 
 def to_slim_geojson(gdf: gpd.GeoDataFrame) -> dict:
@@ -136,7 +174,7 @@ def main() -> None:
         if excluded_count:
             print(f"  Removed {excluded_count} excluded features")
 
-    slim = to_slim_geojson(filtered_gdf)
+    slim = apply_existing_cities(to_slim_geojson(filtered_gdf), existing_cities(OUTPUT_FILE))
     print(f"Writing slim {OUTPUT_FILE} ({len(slim['features'])} features)...")
     write_geojson(OUTPUT_FILE, slim)
 

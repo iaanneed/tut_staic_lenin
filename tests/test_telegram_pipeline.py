@@ -8,6 +8,7 @@ import pytest
 
 from scripts import compute_view_bearing
 from scripts.build_sync_pr_body import build_body
+from scripts.compare_geojson import apply_existing_cities, existing_cities
 from scripts.compute_view_bearing import target_feature_indices
 from scripts.fetch_osm_lenins import (
     build_overpass_query,
@@ -17,6 +18,12 @@ from scripts.fetch_osm_lenins import (
 from scripts.fetch_telegram_channel import latest_source_id, telegram_export_message
 from scripts.fetch_osm_lenins import dumps_geojson, write_geojson
 from scripts.parse_new_monuments import ingest_export, parse_message
+from scripts.reverse_geocode_cities import (
+    format_city,
+    geocode_collection,
+    reverse_lookup,
+    target_feature_indices as city_target_indices,
+)
 from scripts.validate_data import validate
 
 FIXTURE = Path(__file__).parent / "fixtures" / "telegram_messages.json"
@@ -290,6 +297,23 @@ def test_validate_detects_duplicate_ids_and_missing_photo(tmp_path):
     assert any("photo does not exist" in error for error in errors)
 
 
+def test_validate_requires_city_on_possible_features(tmp_path):
+    monuments = tmp_path / "monuments.geojson"
+    possible = tmp_path / "possible.geojson"
+    monuments.write_text('{"type":"FeatureCollection","features":[]}', encoding="utf-8")
+    possible.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [point_feature([27, 53], {"id": "node/1", "name": "Ленін"})],
+            }
+        ),
+        encoding="utf-8",
+    )
+    errors = validate(monuments, possible, tmp_path)
+    assert any("missing city" in error for error in errors)
+
+
 def test_pr_body_lists_actual_added_and_removed_features():
     monuments_before = {
         "type": "FeatureCollection",
@@ -374,3 +398,186 @@ def test_generated_geojson_is_sorted_and_line_diffable(tmp_path):
         "features": list(reversed(collection["features"])),
     }
     assert dumps_geojson(reversed_collection) == text
+
+
+class FakeResponse:
+    def __init__(self, payload, status_code=200):
+        self._payload = payload
+        self.status_code = status_code
+
+    def json(self):
+        return self._payload
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise RuntimeError(f"HTTP {self.status_code}")
+
+
+def test_format_city_uses_closest_settlement_and_belarusian_prefixes():
+    assert format_city({"city": "Мінск"}) == "г. Мінск"
+    assert format_city({"town": "Радашковічы"}) == "г.п. Радашковічы"
+    assert format_city({"village": "Заброддзе", "city": "Мінск"}) == "в. Заброддзе"
+    assert format_city({"hamlet": "Хутар"}) == "в. Хутар"
+    assert format_city({"municipality": "Смаргонскі сельсавет"}) == "Смаргонскі сельсавет"
+    assert format_city({}) is None
+    assert (
+        format_city({"town": "Ганцавічы"}, {"name:prefix:be": "горад"})
+        == "г. Ганцавічы"
+    )
+    assert (
+        format_city({"town": "Старобін"}, {"name:prefix:be": "гарадскі пасёлак"})
+        == "г.п. Старобін"
+    )
+
+
+def test_geocode_skips_features_that_already_have_city():
+    collection = {
+        "type": "FeatureCollection",
+        "features": [
+            point_feature([27.5, 53.9], {"id": "node/1", "name": "Ленін", "city": "г. Мінск"}),
+            point_feature([29.2, 52.1], {"id": "node/2", "name": "Ленін"}),
+        ],
+    }
+    calls: list[tuple] = []
+
+    def get_fn(url, params, headers, timeout):
+        calls.append((url, params))
+        return FakeResponse({"address": {"city": "Гомель"}})
+
+    logs: list[str] = []
+    failed = geocode_collection(
+        collection,
+        min_interval=0,
+        get_fn=get_fn,
+        sleep_fn=lambda _seconds: None,
+        log_fn=logs.append,
+    )
+    assert failed == []
+    assert city_target_indices(collection["features"]) == []
+    assert collection["features"][1]["properties"]["city"] == "г. Гомель"
+    assert len(calls) == 1
+    assert calls[0][1]["lat"] == 52.1
+    assert calls[0][1]["lon"] == 29.2
+    assert any("geocoded 1/1  node/2  г. Гомель" in line for line in logs)
+    assert calls[0][1]["extratags"] == 1
+    assert calls[0][1]["zoom"] == 18
+
+
+def test_geocode_looks_up_name_prefix_for_towns():
+    collection = {
+        "type": "FeatureCollection",
+        "features": [
+            point_feature([26.4274448, 52.7624215], {"id": "node/1", "name": "Ленін"}),
+        ],
+    }
+    zooms: list[int] = []
+
+    def get_fn(url, params, headers, timeout):
+        zooms.append(params["zoom"])
+        if params["zoom"] == 18:
+            return FakeResponse(
+                {
+                    "address": {"town": "Ганцавічы"},
+                    "extratags": {"memorial": "statue"},
+                }
+            )
+        return FakeResponse(
+            {
+                "address": {"town": "Ганцавічы"},
+                "extratags": {"place": "town", "name:prefix:be": "горад"},
+            }
+        )
+
+    failed = geocode_collection(
+        collection,
+        min_interval=0,
+        get_fn=get_fn,
+        sleep_fn=lambda _seconds: None,
+        log_fn=lambda _line: None,
+    )
+    assert failed == []
+    assert zooms == [18, 12]
+    assert collection["features"][0]["properties"]["city"] == "г. Ганцавічы"
+
+
+def test_geocode_does_not_look_up_prefix_for_villages():
+    collection = {
+        "type": "FeatureCollection",
+        "features": [
+            point_feature([30.94, 52.50], {"id": "node/1", "name": "Ленін"}),
+        ],
+    }
+    zooms: list[int] = []
+
+    def get_fn(url, params, headers, timeout):
+        zooms.append(params["zoom"])
+        return FakeResponse(
+            {
+                "address": {"village": "Яроміна", "city": "Яромінскі сельскі Савет"},
+                "extratags": {"memorial": "statue"},
+            }
+        )
+
+    geocode_collection(
+        collection,
+        min_interval=0,
+        get_fn=get_fn,
+        sleep_fn=lambda _seconds: None,
+        log_fn=lambda _line: None,
+    )
+    assert zooms == [18]
+    assert collection["features"][0]["properties"]["city"] == "в. Яроміна"
+
+
+def test_reverse_lookup_retries_on_rate_limit():
+    attempts = {"count": 0}
+
+    def get_fn(url, params, headers, timeout):
+        attempts["count"] += 1
+        if attempts["count"] == 1:
+            return FakeResponse({}, status_code=429)
+        return FakeResponse({"address": {"village": "Іўе"}})
+
+    payload = reverse_lookup(
+        53.9,
+        27.5,
+        get_fn=get_fn,
+        sleep_fn=lambda _seconds: None,
+        sleep=0,
+    )
+    assert payload["address"]["village"] == "Іўе"
+    assert attempts["count"] == 2
+
+
+def test_compare_reuses_cached_cities_by_osm_id(tmp_path):
+    previous = tmp_path / "possible_lenin.geojson"
+    previous.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    point_feature(
+                        [27, 53],
+                        {"id": "node/1", "name": "Ленін", "city": "г. Мінск"},
+                    ),
+                    point_feature(
+                        [28, 54],
+                        {"id": "node/2", "name": "Ленін", "city": "г.п. Радашковічы"},
+                    ),
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    rebuilt = {
+        "type": "FeatureCollection",
+        "features": [
+            point_feature([27, 53], {"id": "node/1", "name": "Ленін", "memorial": "statue"}),
+            point_feature([29, 55], {"id": "node/9", "name": "Ленін"}),
+        ],
+    }
+    apply_existing_cities(rebuilt, existing_cities(previous))
+    by_id = {f["properties"]["id"]: f["properties"] for f in rebuilt["features"]}
+    assert by_id["node/1"]["city"] == "г. Мінск"
+    assert "city" not in by_id["node/9"]
+    assert by_id["node/1"]["memorial"] == "statue"
