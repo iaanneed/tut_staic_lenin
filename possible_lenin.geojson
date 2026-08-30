@@ -13,7 +13,8 @@
       "properties": {
         "id": "node/306064661",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Ельск"
       }
     },
     {
@@ -28,7 +29,8 @@
       "properties": {
         "id": "node/471764408",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Гомель"
       }
     },
     {
@@ -42,7 +44,8 @@
       },
       "properties": {
         "id": "node/663172987",
-        "name": "У.І.Ленін"
+        "name": "У.І.Ленін",
+        "city": "г. Бяроза"
       }
     },
     {
@@ -56,7 +59,8 @@
       },
       "properties": {
         "id": "node/828733544",
-        "name": "У.І.Ленін"
+        "name": "У.І.Ленін",
+        "city": "г. Салігорск"
       }
     },
     {
@@ -70,7 +74,8 @@
       },
       "properties": {
         "id": "node/890135750",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Мазыр"
       }
     },
     {
@@ -84,7 +89,8 @@
       },
       "properties": {
         "id": "node/1124671288",
-        "name": "У. І. Леніну"
+        "name": "У. І. Леніну",
+        "city": "г. Ваўкавыск"
       }
     },
     {
@@ -99,7 +105,8 @@
       "properties": {
         "id": "node/1131397342",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Клічаў"
       }
     },
     {
@@ -113,7 +120,8 @@
       },
       "properties": {
         "id": "node/1390113198",
-        "name": "Помнік Леніну"
+        "name": "Помнік Леніну",
+        "city": "в. Яроміна"
       }
     },
     {
@@ -128,7 +136,8 @@
       "properties": {
         "id": "node/1398943140",
         "name": "Ленін У.І.",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г.п. Старобін"
       }
     },
     {
@@ -142,7 +151,8 @@
       },
       "properties": {
         "id": "node/1458852482",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г.п. Чэрвень"
       }
     },
     {
@@ -157,7 +167,8 @@
       "properties": {
         "id": "node/1645592785",
         "name": "Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Мінск"
       }
     },
     {
@@ -171,7 +182,8 @@
       },
       "properties": {
         "id": "node/1807214621",
-        "name": "помнік Леніну"
+        "name": "помнік Леніну",
+        "city": "г.п. Дзятлава"
       }
     },
     {
@@ -185,7 +197,8 @@
       },
       "properties": {
         "id": "node/2201525659",
-        "name": "Ленін У. І."
+        "name": "Ленін У. І.",
+        "city": "г. Чавусы"
       }
     },
     {
@@ -200,7 +213,8 @@
       "properties": {
         "id": "node/2246993048",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г.п. Ганцавічы"
       }
     },
     {
@@ -214,7 +228,8 @@
       },
       "properties": {
         "id": "node/2480042771",
-        "name": "У.І.Ленін"
+        "name": "У.І.Ленін",
+        "city": "г. Хойнікі"
       }
     },
     {
@@ -229,7 +244,8 @@
       "properties": {
         "id": "node/2668301119",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Рэчыца"
       }
     },
     {
@@ -243,7 +259,8 @@
       },
       "properties": {
         "id": "node/2956914044",
-        "name": "У. І. Ленін"
+        "name": "У. І. Ленін",
+        "city": "г.п. Навагрудак"
       }
     },
     {
@@ -258,7 +275,8 @@
       "properties": {
         "id": "node/3016270555",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г.п. Хоцімск"
       }
     },
     {
@@ -272,7 +290,8 @@
       },
       "properties": {
         "id": "node/3119003619",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Асіповічы"
       }
     },
     {
@@ -286,7 +305,8 @@
       },
       "properties": {
         "id": "node/3174915634",
-        "name": "Блакаднаму Ленінграду"
+        "name": "Блакаднаму Ленінграду",
+        "city": "г. Мазыр"
       }
     },
     {
@@ -300,7 +320,8 @@
       },
       "properties": {
         "id": "node/3212149498",
-        "name": "У. І. Леніну (Ульянаву)"
+        "name": "У. І. Леніну (Ульянаву)",
+        "city": "г.п. Іванава"
       }
     },
     {
@@ -314,7 +335,8 @@
       },
       "properties": {
         "id": "node/3248374682",
-        "name": "Ленін У.І."
+        "name": "Ленін У.І.",
+        "city": "г. Івацэвічы"
       }
     },
     {
@@ -328,7 +350,8 @@
       },
       "properties": {
         "id": "node/3259601140",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Мазыр"
       }
     },
     {
@@ -343,7 +366,8 @@
       "properties": {
         "id": "node/3306886058",
         "name": "Горад герой Ленінград",
-        "memorial": "stele"
+        "memorial": "stele",
+        "city": "г. Брэст"
       }
     },
     {
@@ -358,7 +382,8 @@
       "properties": {
         "id": "node/3322459389",
         "name": "Ленін У.І.",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Маларыта"
       }
     },
     {
@@ -372,7 +397,8 @@
       },
       "properties": {
         "id": "node/3404923488",
-        "name": "У.І.Ленін"
+        "name": "У.І.Ленін",
+        "city": "в. Зябраўка"
       }
     },
     {
@@ -386,7 +412,8 @@
       },
       "properties": {
         "id": "node/3414905855",
-        "name": "Ленін У. І."
+        "name": "Ленін У. І.",
+        "city": "г. Крычаў"
       }
     },
     {
@@ -400,7 +427,8 @@
       },
       "properties": {
         "id": "node/3732300317",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г.п. Бешанковічы"
       }
     },
     {
@@ -414,7 +442,8 @@
       },
       "properties": {
         "id": "node/3740402331",
-        "name": "Ленін У.І."
+        "name": "Ленін У.І.",
+        "city": "г. Мазыр"
       }
     },
     {
@@ -429,7 +458,8 @@
       "properties": {
         "id": "node/3742590530",
         "name": "Леніну У. І.",
-        "memorial": "sculpture"
+        "memorial": "sculpture",
+        "city": "в. Ула"
       }
     },
     {
@@ -443,7 +473,8 @@
       },
       "properties": {
         "id": "node/3771749644",
-        "name": "Ленін У.І."
+        "name": "Ленін У.І.",
+        "city": "г. Мазыр"
       }
     },
     {
@@ -457,7 +488,8 @@
       },
       "properties": {
         "id": "node/3845415394",
-        "name": "Леніну У. І."
+        "name": "Леніну У. І.",
+        "city": "г. Свіслач"
       }
     },
     {
@@ -472,7 +504,8 @@
       "properties": {
         "id": "node/3875841967",
         "name": "Помнік Леніну",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Каленкавічы"
       }
     },
     {
@@ -486,7 +519,8 @@
       },
       "properties": {
         "id": "node/3947680477",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г.п. Лельчыцы"
       }
     },
     {
@@ -500,7 +534,8 @@
       },
       "properties": {
         "id": "node/4042039269",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Драгічын"
       }
     },
     {
@@ -515,7 +550,8 @@
       "properties": {
         "id": "node/4105620190",
         "name": "У.І.Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Чэрыкаў"
       }
     },
     {
@@ -530,7 +566,8 @@
       "properties": {
         "id": "node/4153501996",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Мінск"
       }
     },
     {
@@ -544,7 +581,8 @@
       },
       "properties": {
         "id": "node/4210984592",
-        "name": "Ленін У.І."
+        "name": "Ленін У.І.",
+        "city": "г. Калінкавічы"
       }
     },
     {
@@ -558,7 +596,8 @@
       },
       "properties": {
         "id": "node/4214328004",
-        "name": "У І Ленін"
+        "name": "У І Ленін",
+        "city": "г. Мазыр"
       }
     },
     {
@@ -572,7 +611,8 @@
       },
       "properties": {
         "id": "node/4232005616",
-        "name": "помнік Леніну"
+        "name": "помнік Леніну",
+        "city": "г.п. Акцябрскі"
       }
     },
     {
@@ -586,7 +626,8 @@
       },
       "properties": {
         "id": "node/4249288751",
-        "name": "У.І. Леніну"
+        "name": "У.І. Леніну",
+        "city": "г. Чашнікі"
       }
     },
     {
@@ -600,7 +641,8 @@
       },
       "properties": {
         "id": "node/4331509890",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Лунінец"
       }
     },
     {
@@ -614,7 +656,8 @@
       },
       "properties": {
         "id": "node/4375248389",
-        "name": "Леніну У. І."
+        "name": "Леніну У. І.",
+        "city": "г. Нароўля"
       }
     },
     {
@@ -629,7 +672,8 @@
       "properties": {
         "id": "node/4420017810",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Орша"
       }
     },
     {
@@ -643,7 +687,8 @@
       },
       "properties": {
         "id": "node/4481398976",
-        "name": "Ленін У.І."
+        "name": "Ленін У.І.",
+        "city": "г. Любань"
       }
     },
     {
@@ -658,7 +703,8 @@
       "properties": {
         "id": "node/4521963594",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г.п. Астрына"
       }
     },
     {
@@ -673,7 +719,8 @@
       "properties": {
         "id": "node/4548032718",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Гомель"
       }
     },
     {
@@ -687,7 +734,8 @@
       },
       "properties": {
         "id": "node/4598345817",
-        "name": "помнік Леніну"
+        "name": "помнік Леніну",
+        "city": "г.п. Клімавічы"
       }
     },
     {
@@ -702,7 +750,8 @@
       "properties": {
         "id": "node/4664365889",
         "name": "У. І. Леніну (Ульянаву)",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Барысаў"
       }
     },
     {
@@ -716,7 +765,8 @@
       },
       "properties": {
         "id": "node/4684271494",
-        "name": "Помнік Леніну"
+        "name": "Помнік Леніну",
+        "city": "в. Язні"
       }
     },
     {
@@ -731,7 +781,8 @@
       "properties": {
         "id": "node/4749926068",
         "name": "У.І.Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Дуброўна"
       }
     },
     {
@@ -745,7 +796,8 @@
       },
       "properties": {
         "id": "node/4781370723",
-        "name": "Уладзімір Ільіч Ленін"
+        "name": "Уладзімір Ільіч Ленін",
+        "city": "г. Горкі"
       }
     },
     {
@@ -759,7 +811,8 @@
       },
       "properties": {
         "id": "node/4798517288",
-        "name": "У. І. Ленін"
+        "name": "У. І. Ленін",
+        "city": "г. Буда-Кашалёва"
       }
     },
     {
@@ -773,7 +826,8 @@
       },
       "properties": {
         "id": "node/4813948221",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Камянец"
       }
     },
     {
@@ -787,7 +841,8 @@
       },
       "properties": {
         "id": "node/4816317278",
-        "name": "У.І.Ленін"
+        "name": "У.І.Ленін",
+        "city": "г. Мікашэвічы"
       }
     },
     {
@@ -801,7 +856,8 @@
       },
       "properties": {
         "id": "node/4907692025",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Дзяржынск"
       }
     },
     {
@@ -815,7 +871,8 @@
       },
       "properties": {
         "id": "node/4927258078",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Ракаўскі сельскі Савет"
       }
     },
     {
@@ -830,7 +887,8 @@
       "properties": {
         "id": "node/4928455690",
         "name": "У.І.Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Бабруйск"
       }
     },
     {
@@ -844,7 +902,8 @@
       },
       "properties": {
         "id": "node/4934140297",
-        "name": "Леніну"
+        "name": "Леніну",
+        "city": "г. Ветрынскі сельскі Савет"
       }
     },
     {
@@ -859,7 +918,8 @@
       "properties": {
         "id": "node/4977282698",
         "name": "У. І. Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Адэльск"
       }
     },
     {
@@ -874,7 +934,8 @@
       "properties": {
         "id": "node/5200059522",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Быхаў"
       }
     },
     {
@@ -889,7 +950,8 @@
       "properties": {
         "id": "node/5222187499",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Добруш"
       }
     },
     {
@@ -903,7 +965,8 @@
       },
       "properties": {
         "id": "node/5338584143",
-        "name": "У. І. Ленін"
+        "name": "У. І. Ленін",
+        "city": "г. Докшыцы"
       }
     },
     {
@@ -917,7 +980,8 @@
       },
       "properties": {
         "id": "node/5497238599",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Бягомльскі сельскі Савет"
       }
     },
     {
@@ -931,7 +995,8 @@
       },
       "properties": {
         "id": "node/5586161524",
-        "name": "У. І. Ленін"
+        "name": "У. І. Ленін",
+        "city": "г.п. Багушэўск"
       }
     },
     {
@@ -945,7 +1010,8 @@
       },
       "properties": {
         "id": "node/5592751813",
-        "name": "Леніну У. І."
+        "name": "Леніну У. І.",
+        "city": "в. Міцкевічы"
       }
     },
     {
@@ -959,7 +1025,8 @@
       },
       "properties": {
         "id": "node/5661573130",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Ашмяны"
       }
     },
     {
@@ -973,7 +1040,8 @@
       },
       "properties": {
         "id": "node/5685184078",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г.п. Лёзна"
       }
     },
     {
@@ -988,7 +1056,8 @@
       "properties": {
         "id": "node/5685223441",
         "name": "Бюст Уладзіміра Леніна",
-        "memorial": "person"
+        "memorial": "person",
+        "city": "в. Лукава"
       }
     },
     {
@@ -1002,7 +1071,8 @@
       },
       "properties": {
         "id": "node/5685290421",
-        "name": "Ленін малады"
+        "name": "Ленін малады",
+        "city": "г.п. Іванава"
       }
     },
     {
@@ -1017,7 +1087,8 @@
       "properties": {
         "id": "node/5685424622",
         "name": "Бюст У.І. Леніна",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Пінск"
       }
     },
     {
@@ -1032,7 +1103,8 @@
       "properties": {
         "id": "node/5792154077",
         "name": "В. І. Леніну",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Высокае"
       }
     },
     {
@@ -1047,7 +1119,8 @@
       "properties": {
         "id": "node/5896900307",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Добруш"
       }
     },
     {
@@ -1062,7 +1135,8 @@
       "properties": {
         "id": "node/5911190909",
         "name": "У. І. Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Жабінка"
       }
     },
     {
@@ -1076,7 +1150,8 @@
       },
       "properties": {
         "id": "node/5977585185",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Горкі"
       }
     },
     {
@@ -1091,7 +1166,8 @@
       "properties": {
         "id": "node/6142800006",
         "name": "У.І.Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Малеч"
       }
     },
     {
@@ -1106,7 +1182,8 @@
       "properties": {
         "id": "node/6330750804",
         "name": "Уладзімір Ільіч Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Столін"
       }
     },
     {
@@ -1121,7 +1198,8 @@
       "properties": {
         "id": "node/6782119688",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Варапаеўскі сельскі Савет"
       }
     },
     {
@@ -1136,7 +1214,8 @@
       "properties": {
         "id": "node/6929653838",
         "name": "Ленін У.І.",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "в. Слабада"
       }
     },
     {
@@ -1151,7 +1230,8 @@
       "properties": {
         "id": "node/6935391896",
         "name": "Ленін У.І.",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Ясень"
       }
     },
     {
@@ -1165,7 +1245,8 @@
       },
       "properties": {
         "id": "node/6969932390",
-        "name": "У.І.Ленін"
+        "name": "У.І.Ленін",
+        "city": "г. Іўе"
       }
     },
     {
@@ -1179,7 +1260,8 @@
       },
       "properties": {
         "id": "node/7084637387",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Лінаўскі сельскі Савет"
       }
     },
     {
@@ -1194,7 +1276,8 @@
       "properties": {
         "id": "node/7436687593",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Быхаў"
       }
     },
     {
@@ -1209,7 +1292,8 @@
       "properties": {
         "id": "node/7437041561",
         "name": "Ленін У.І.",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Пакалюбічы"
       }
     },
     {
@@ -1224,7 +1308,8 @@
       "properties": {
         "id": "node/7437041563",
         "name": "У. І. Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Пакалюбічы"
       }
     },
     {
@@ -1239,7 +1324,8 @@
       "properties": {
         "id": "node/7465082129",
         "name": "бюст Леніна У. І.",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Хайсы"
       }
     },
     {
@@ -1254,7 +1340,8 @@
       "properties": {
         "id": "node/7524561220",
         "name": "бюст Леніна У. І.",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Віцебск"
       }
     },
     {
@@ -1268,7 +1355,8 @@
       },
       "properties": {
         "id": "node/7560551724",
-        "name": "120 работнікам калгаса імя Леніна загінуўшым у ВАВ"
+        "name": "120 работнікам калгаса імя Леніна загінуўшым у ВАВ",
+        "city": "г.п. Краснаполле"
       }
     },
     {
@@ -1283,7 +1371,8 @@
       "properties": {
         "id": "node/7563745283",
         "name": "Ленін У.І.",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г.п. Краснаполле"
       }
     },
     {
@@ -1298,7 +1387,8 @@
       "properties": {
         "id": "node/7704904463",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г.п. Лоеў"
       }
     },
     {
@@ -1313,7 +1403,8 @@
       "properties": {
         "id": "node/7764900316",
         "name": "У.І.Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Мяльканавічы"
       }
     },
     {
@@ -1327,7 +1418,8 @@
       },
       "properties": {
         "id": "node/7937064582",
-        "name": "У.І.Ленін"
+        "name": "У.І.Ленін",
+        "city": "г.п. Брагін"
       }
     },
     {
@@ -1341,7 +1433,8 @@
       },
       "properties": {
         "id": "node/8015518785",
-        "name": "Ленін маленькі"
+        "name": "Ленін маленькі",
+        "city": "в. Слабажанка"
       }
     },
     {
@@ -1355,7 +1448,8 @@
       },
       "properties": {
         "id": "node/8349864217",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "в. Каханавічы"
       }
     },
     {
@@ -1369,7 +1463,8 @@
       },
       "properties": {
         "id": "node/8349889925",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "в. Слабажанка"
       }
     },
     {
@@ -1384,7 +1479,8 @@
       "properties": {
         "id": "node/8626524918",
         "name": "Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Баранавічы"
       }
     },
     {
@@ -1399,7 +1495,8 @@
       "properties": {
         "id": "node/8701332389",
         "name": "Бюст У.І.Леніна",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Крупкі"
       }
     },
     {
@@ -1414,7 +1511,8 @@
       "properties": {
         "id": "node/8870369035",
         "name": "У.І.Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Ждановіцкі сельскі Савет"
       }
     },
     {
@@ -1429,7 +1527,8 @@
       "properties": {
         "id": "node/8972951685",
         "name": "У.І.Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Мазыр"
       }
     },
     {
@@ -1443,7 +1542,8 @@
       },
       "properties": {
         "id": "node/9044675696",
-        "name": "Ленін У. І."
+        "name": "Ленін У. І.",
+        "city": "г. Крычаў"
       }
     },
     {
@@ -1457,7 +1557,8 @@
       },
       "properties": {
         "id": "node/9061651223",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г.п. Клімавічы"
       }
     },
     {
@@ -1471,7 +1572,8 @@
       },
       "properties": {
         "id": "node/9061651224",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г. Касцюковічы"
       }
     },
     {
@@ -1486,7 +1588,8 @@
       "properties": {
         "id": "node/9081084321",
         "name": "Помнік Леніну",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Лепель"
       }
     },
     {
@@ -1501,7 +1604,8 @@
       "properties": {
         "id": "node/9124249375",
         "name": "Ленін У.І.",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Турна Вялікая"
       }
     },
     {
@@ -1516,7 +1620,8 @@
       "properties": {
         "id": "node/9311284723",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Чачэрск"
       }
     },
     {
@@ -1531,7 +1636,8 @@
       "properties": {
         "id": "node/9451064340",
         "name": "Помнік Леніну",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г.п. Поразава"
       }
     },
     {
@@ -1546,7 +1652,8 @@
       "properties": {
         "id": "node/9573853824",
         "name": "Ленін У.І.",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Гірмантаўцы"
       }
     },
     {
@@ -1561,7 +1668,8 @@
       "properties": {
         "id": "node/9589198719",
         "name": "У.І.Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Мінск"
       }
     },
     {
@@ -1575,7 +1683,8 @@
       },
       "properties": {
         "id": "node/9705204817",
-        "name": "Малады У.І. Ленін"
+        "name": "Малады У.І. Ленін",
+        "city": "г. Навагрудак"
       }
     },
     {
@@ -1590,7 +1699,8 @@
       "properties": {
         "id": "node/9722023817",
         "name": "У.І.Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Мінск"
       }
     },
     {
@@ -1604,7 +1714,8 @@
       },
       "properties": {
         "id": "node/9722187817",
-        "name": "Бюст У.І. Леніна"
+        "name": "Бюст У.І. Леніна",
+        "city": "в. Лашаны"
       }
     },
     {
@@ -1619,7 +1730,8 @@
       "properties": {
         "id": "node/9759186660",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "в. Югалін"
       }
     },
     {
@@ -1634,7 +1746,8 @@
       "properties": {
         "id": "node/9812105246",
         "name": "Ленін У.І.",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Чудзін"
       }
     },
     {
@@ -1648,7 +1761,8 @@
       },
       "properties": {
         "id": "node/9947930355",
-        "name": "Ленін У.І."
+        "name": "Ленін У.І.",
+        "city": "г. Бялынічы"
       }
     },
     {
@@ -1663,7 +1777,8 @@
       "properties": {
         "id": "node/9977135616",
         "name": "В. И. Ленин",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Аснежыцы"
       }
     },
     {
@@ -1678,7 +1793,8 @@
       "properties": {
         "id": "node/10704735005",
         "name": "Указ аб узнагароджанні ордэнам Леніна",
-        "memorial": "plaque"
+        "memorial": "plaque",
+        "city": "г. Баранавічы"
       }
     },
     {
@@ -1693,7 +1809,8 @@
       "properties": {
         "id": "node/10721623161",
         "name": "Леніну",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Дамачаўскі сельскі Савет"
       }
     },
     {
@@ -1708,7 +1825,8 @@
       "properties": {
         "id": "node/10923549977",
         "name": "Уладзімір Ільіч Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Смальяны"
       }
     },
     {
@@ -1723,7 +1841,8 @@
       "properties": {
         "id": "node/11034697008",
         "name": "Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Жукоўшчына"
       }
     },
     {
@@ -1738,7 +1857,8 @@
       "properties": {
         "id": "node/11036090505",
         "name": "Помнік Леніну",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г.п. Асіповічы"
       }
     },
     {
@@ -1752,7 +1872,8 @@
       },
       "properties": {
         "id": "node/11143855605",
-        "name": "Ленін"
+        "name": "Ленін",
+        "city": "г.п. Шуміліна"
       }
     },
     {
@@ -1767,7 +1888,8 @@
       "properties": {
         "id": "node/11332808961",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Гомель"
       }
     },
     {
@@ -1782,7 +1904,8 @@
       "properties": {
         "id": "node/11359839607",
         "name": "У гонар Пухавіцкага райкама камуністычнай партыі Беларусі і Ленінскага камуністычнага саюза Беларусі, партызанскай брыгады «Полымя»",
-        "memorial": "memorial"
+        "memorial": "memorial",
+        "city": "г. Пухавіцкі сельскі Савет"
       }
     },
     {
@@ -1797,7 +1920,8 @@
       "properties": {
         "id": "node/11363549272",
         "name": "У. І. Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Вусце"
       }
     },
     {
@@ -1811,7 +1935,8 @@
       },
       "properties": {
         "id": "node/11533890769",
-        "name": "В.И.Ленин"
+        "name": "В.И.Ленин",
+        "city": "г. Віцебск"
       }
     },
     {
@@ -1826,7 +1951,8 @@
       "properties": {
         "id": "node/11638938682",
         "name": "Ленин",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г.п. Азарычы"
       }
     },
     {
@@ -1841,7 +1967,8 @@
       "properties": {
         "id": "node/11762040600",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Гомель"
       }
     },
     {
@@ -1856,7 +1983,8 @@
       "properties": {
         "id": "node/11809981283",
         "name": "В. И. Ленин",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Пінск"
       }
     },
     {
@@ -1871,7 +1999,8 @@
       "properties": {
         "id": "node/11990624987",
         "name": "У. І. Леніну",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Брэст"
       }
     },
     {
@@ -1886,7 +2015,8 @@
       "properties": {
         "id": "node/12014943454",
         "name": "У. І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Рэчыца"
       }
     },
     {
@@ -1900,7 +2030,8 @@
       },
       "properties": {
         "id": "node/12174782051",
-        "name": "Уладзімір Ільіч Ленін"
+        "name": "Уладзімір Ільіч Ленін",
+        "city": "г.п. Вялікая Бераставіца"
       }
     },
     {
@@ -1915,7 +2046,8 @@
       "properties": {
         "id": "node/12189493056",
         "name": "В. И. Ленин",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "в. Пагост Загародскі"
       }
     },
     {
@@ -1930,7 +2062,8 @@
       "properties": {
         "id": "node/12598272607",
         "name": "Ульянаў (Ленін) Уладзімір Ілліч",
-        "memorial": "plaque"
+        "memorial": "plaque",
+        "city": "г. Брэст"
       }
     },
     {
@@ -1945,7 +2078,8 @@
       "properties": {
         "id": "node/12814341817",
         "name": "Ленін",
-        "memorial": "plaque"
+        "memorial": "plaque",
+        "city": "г. Стралічаўскі сельскі Савет"
       }
     },
     {
@@ -1960,7 +2094,8 @@
       "properties": {
         "id": "node/12829209318",
         "name": "У.І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Старыя Дарогі"
       }
     },
     {
@@ -1975,7 +2110,8 @@
       "properties": {
         "id": "node/13021395416",
         "name": "В.И.Ленин",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "в. Беразінскае"
       }
     },
     {
@@ -1990,7 +2126,8 @@
       "properties": {
         "id": "node/13028099795",
         "name": "Ленин",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "в. Ракаўцы"
       }
     },
     {
@@ -2005,7 +2142,8 @@
       "properties": {
         "id": "node/13100446040",
         "name": "У. І. Ленін",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Гомель"
       }
     },
     {
@@ -2020,7 +2158,8 @@
       "properties": {
         "id": "node/13582793315",
         "name": "Ленін У. І.",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Віцебск"
       }
     },
     {
@@ -2034,7 +2173,8 @@
       },
       "properties": {
         "id": "node/14053657501",
-        "name": "В.И. Ленин"
+        "name": "В.И. Ленин",
+        "city": "г.п. Нарач"
       }
     },
     {
@@ -2049,7 +2189,8 @@
       "properties": {
         "id": "node/14054412633",
         "name": "У. І. Леніну",
-        "memorial": "bust"
+        "memorial": "bust",
+        "city": "г. Жабінка"
       }
     },
     {
@@ -2063,7 +2204,8 @@
       },
       "properties": {
         "id": "way/241502009",
-        "name": "Ленін У.І."
+        "name": "Ленін У.І.",
+        "city": "г.п. Церахоўка"
       }
     },
     {
@@ -2077,7 +2219,8 @@
       },
       "properties": {
         "id": "way/295775165",
-        "name": "Ленін У.І."
+        "name": "Ленін У.І.",
+        "city": "г. Петрыкаў"
       }
     },
     {
@@ -2091,7 +2234,8 @@
       },
       "properties": {
         "id": "way/309855358",
-        "name": "Помнік Леніну"
+        "name": "Помнік Леніну",
+        "city": "в. Свяцілавічы"
       }
     },
     {
@@ -2106,7 +2250,8 @@
       "properties": {
         "id": "way/385697604",
         "name": "Воінскі мемарыял імя Ленінскага камсамола",
-        "memorial": "war_memorial"
+        "memorial": "war_memorial",
+        "city": "в. Копці"
       }
     },
     {
@@ -2121,7 +2266,8 @@
       "properties": {
         "id": "way/884243665",
         "name": "У.І. Ленін",
-        "memorial": "statue"
+        "memorial": "statue",
+        "city": "г. Барань"
       }
     }
   ]

@@ -73,8 +73,12 @@ def validate(
                 errors.append(f"{prefix}: photo does not exist: {photo}")
 
     for index, feature in enumerate(possible.get("features", [])):
+        prefix = f"{possible_path}: feature {index}"
         if not valid_point(feature):
-            errors.append(f"{possible_path}: feature {index}: invalid Point coordinates")
+            errors.append(f"{prefix}: invalid Point coordinates")
+        city = (feature.get("properties") or {}).get("city")
+        if not isinstance(city, str) or not city.strip():
+            errors.append(f"{prefix}: missing city")
 
     return errors
 
