@@ -5,7 +5,7 @@ const BELARUS_BOUNDS = [23.17, 51.25, 32.77, 56.17];
 
 const map = new maplibregl.Map({
     container: 'map', 
-    style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+    style: 'https://iaanneed.github.io/carto-positron-ofm/positron.json',
     center: [28.0, 53.5], 
     zoom: 4.7,
     maxBounds: WIDE_BELARUS_BOUNDS
