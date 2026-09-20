@@ -29,8 +29,8 @@
       "properties": {
         "id": "node/377596702",
         "name": "Уладзіміру Леніну",
-        "memorial": "statue",
-        "city": "г. Лагойск"
+        "city": "г. Лагойск",
+        "memorial": "statue"
       }
     },
     {
@@ -836,8 +836,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          27.1289107,
-          53.6853621
+          27.1286036,
+          53.6852623
         ]
       },
       "properties": {
@@ -1059,22 +1059,6 @@
         "id": "node/5685290421",
         "name": "Ленін малады",
         "city": "г.п. Іванава"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          26.0774965,
-          52.1122459
-        ]
-      },
-      "properties": {
-        "id": "node/5685424622",
-        "name": "Бюст У.І. Леніна",
-        "city": "г. Пінск",
-        "memorial": "statue"
       }
     },
     {
@@ -1545,21 +1529,6 @@
         "id": "node/9061651223",
         "name": "Ленін",
         "city": "г.п. Клімавічы"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          32.0587657,
-          53.3512403
-        ]
-      },
-      "properties": {
-        "id": "node/9061651224",
-        "name": "Ленін",
-        "city": "г. Касцюковічы"
       }
     },
     {
@@ -2177,6 +2146,22 @@
         "name": "У. І. Леніну",
         "city": "г. Жабінка",
         "memorial": "bust"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.6731992,
+          51.9393788
+        ]
+      },
+      "properties": {
+        "id": "node/14183745391",
+        "name": "Ленін",
+        "memorial": "stone11",
+        "city": "в. Каўпень"
       }
     },
     {

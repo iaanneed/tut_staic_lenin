@@ -1575,6 +1575,48 @@
         "source_date": "2026-08-30T19:10:56+00:00",
         "viewBearing": null
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.058792,
+          53.351217
+        ]
+      },
+      "properties": {
+        "city": "г. Касцюковічы",
+        "title": null,
+        "regionHashtag": "#Магілеўская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_86@05-09-2026_18-46-32.jpg",
+        "imageUrl_full": "photos/photo_86@05-09-2026_18-46-32.jpg",
+        "source_id": 86,
+        "source_date": "2026-09-05T18:46:32+00:00",
+        "viewBearing": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.077498,
+          52.112244
+        ]
+      },
+      "properties": {
+        "city": "г. Пінск",
+        "title": null,
+        "regionHashtag": "#Брэсцкая",
+        "monumentType": "#Бюст",
+        "imageUrl_preview": "photos/photo_87@20-09-2026_11-31-03.jpg",
+        "imageUrl_full": "photos/photo_87@20-09-2026_11-31-03.jpg",
+        "source_id": 87,
+        "source_date": "2026-09-20T11:31:03+00:00",
+        "viewBearing": 92.1
+      }
     }
   ]
 }
