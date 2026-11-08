@@ -84,8 +84,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          24.4644704,
-          53.1629714
+          24.4645031,
+          53.1629586
         ]
       },
       "properties": {
@@ -582,8 +582,9 @@
       },
       "properties": {
         "id": "node/4210984592",
-        "name": "Ленін У.І.",
-        "city": "г. Калінкавічы"
+        "name": "У.І. Ленін",
+        "city": "г. Калінкавічы",
+        "memorial": "statue"
       }
     },
     {
@@ -1836,22 +1837,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          31.0290787,
-          52.3919812
-        ]
-      },
-      "properties": {
-        "id": "node/11332808961",
-        "name": "У. І. Ленін",
-        "city": "г. Гомель",
-        "memorial": "statue"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           28.3614132,
           53.4878026
         ]
@@ -2010,6 +1995,22 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          29.525625,
+          51.9417274
+        ]
+      },
+      "properties": {
+        "id": "node/12367287201",
+        "name": "У. І. Ленін",
+        "memorial": "statue",
+        "city": "в. Юравічы"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           23.6801759,
           52.0999856
         ]
@@ -2160,8 +2161,23 @@
       "properties": {
         "id": "node/14183745391",
         "name": "Ленін",
-        "memorial": "stone11",
-        "city": "в. Каўпень"
+        "city": "в. Каўпень",
+        "memorial": "stone"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          27.8748062,
+          54.1612169
+        ]
+      },
+      "properties": {
+        "id": "node/14288323406",
+        "name": "В. И. Ленин",
+        "city": "в. Аўгустова"
       }
     },
     {

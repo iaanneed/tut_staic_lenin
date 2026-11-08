@@ -1617,6 +1617,27 @@
         "source_date": "2026-09-20T11:31:03+00:00",
         "viewBearing": 92.1
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.029081,
+          52.391984
+        ]
+      },
+      "properties": {
+        "city": "г. Гомель",
+        "title": null,
+        "regionHashtag": "#Гомельская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_88@08-11-2026_13-27-12.jpg",
+        "imageUrl_full": "photos/photo_88@08-11-2026_13-27-12.jpg",
+        "source_id": 88,
+        "source_date": "2026-11-08T13:27:12+00:00",
+        "viewBearing": 267.7
+      }
     }
   ]
 }
