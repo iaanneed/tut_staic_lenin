@@ -193,10 +193,12 @@ def test_bearing_targets_only_features_without_property():
 
 
 def test_overpass_failure_is_not_treated_as_empty_result(monkeypatch):
+    from scripts import fetch_osm_lenins
+
     def fail_request(*_args, **_kwargs):
         raise OSError("network unavailable")
 
-    monkeypatch.setattr(compute_view_bearing.requests, "post", fail_request)
+    monkeypatch.setattr(fetch_osm_lenins.requests, "post", fail_request)
     monkeypatch.setattr(compute_view_bearing.time, "sleep", lambda _seconds: None)
 
     with pytest.raises(RuntimeError, match="Overpass API failed"):
@@ -581,3 +583,67 @@ def test_compare_reuses_cached_cities_by_osm_id(tmp_path):
     assert by_id["node/1"]["city"] == "г. Мінск"
     assert "city" not in by_id["node/9"]
     assert by_id["node/1"]["memorial"] == "statue"
+
+
+@pytest.mark.parametrize("use_bearing", [False, True])
+@pytest.mark.parametrize("successful_server", [0, 1, 2, None])
+def test_overpass_fallback_order(monkeypatch, use_bearing, successful_server):
+    from scripts import fetch_osm_lenins
+
+    urls = [fetch_osm_lenins.OVERPASS_URL, *fetch_osm_lenins.OVERPASS_FALLBACK_URLS]
+    calls = []
+    sleeps = []
+    elements = [{"type": "way", "id": 1}]
+
+    class Response:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return {"elements": elements}
+
+    def post(url, **kwargs):
+        calls.append((url, kwargs))
+        if len(calls) - 1 != successful_server:
+            raise fetch_osm_lenins.requests.exceptions.Timeout("unavailable")
+        return Response()
+
+    monkeypatch.setattr(fetch_osm_lenins.requests, "post", post)
+    monkeypatch.setattr(fetch_osm_lenins.time, "sleep", sleeps.append)
+    fetch = compute_view_bearing.overpass_query if use_bearing else fetch_overpass_elements
+    if successful_server is None:
+        with pytest.raises(RuntimeError, match="failed after 3 attempts"):
+            fetch("query")
+        count = 3
+    else:
+        assert fetch("query") == elements
+        count = successful_server + 1
+    assert [url for url, _ in calls] == urls[:count]
+    assert all(kwargs == calls[0][1] for _, kwargs in calls)
+    assert sleeps == [5.0] * (count - 1)
+
+
+@pytest.mark.parametrize("payload", [None, {}, {"elements": None},
+                                      {"elements": [], "remark": "runtime error: timeout"},
+                                      {"elements": []}])
+def test_overpass_invalid_payload_falls_back_but_empty_result_succeeds(monkeypatch, payload):
+    from scripts import fetch_osm_lenins
+
+    calls = []
+
+    class Response:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return payload if len(calls) == 1 else {"elements": []}
+
+    def post(url, **_kwargs):
+        calls.append(url)
+        return Response()
+
+    monkeypatch.setattr(fetch_osm_lenins.requests, "post", post)
+    monkeypatch.setattr(fetch_osm_lenins.time, "sleep", lambda _: None)
+    assert fetch_overpass_elements("query") == []
+    count = 1 if payload == {"elements": []} else 2
+    assert calls == [fetch_osm_lenins.OVERPASS_URL, *fetch_osm_lenins.OVERPASS_FALLBACK_URLS][:count]
