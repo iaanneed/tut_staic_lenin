@@ -16,6 +16,10 @@ RAW_DATA_DIR = PROJECT_ROOT / "scripts" / "raw_data"
 DEFAULT_OUTPUT = RAW_DATA_DIR / "osm_lenin.geojson"
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+OVERPASS_FALLBACK_URLS = (
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+)
 HEADERS = {
     "User-Agent": "tut-staic-lenin-osm-fetch/1.0 (contact: ivan.liadzian@mapbox.com)"
 }
@@ -90,28 +94,33 @@ def fetch_overpass_elements(
     attempts: int = 3,
     sleep: float = 5.0,
 ) -> list[dict]:
+    """Try the main server, then public fallbacks; custom URLs stay isolated."""
     last_error: Exception | None = None
+    urls = (url, *OVERPASS_FALLBACK_URLS) if url == OVERPASS_URL else (url,)
     request_headers = headers if headers is not None else HEADERS
     for attempt in range(attempts):
+        endpoint = urls[attempt % len(urls)]
         try:
             response = requests.post(
-                url,
+                endpoint,
                 data={"data": query},
                 headers=request_headers,
                 timeout=timeout,
             )
             response.raise_for_status()
             payload = response.json()
+            if not isinstance(payload, dict) or payload.get("remark"):
+                raise RuntimeError(f"Overpass response error: {payload}")
             elements = payload.get("elements")
             if not isinstance(elements, list):
                 raise RuntimeError("Overpass response missing elements list")
             return elements
         except Exception as exc:
             last_error = exc
-            print(f"  overpass error (attempt {attempt + 1}): {exc}", file=sys.stderr)
+            print(f"  overpass error from {endpoint} (attempt {attempt + 1}): {exc}", file=sys.stderr)
             if attempt + 1 < attempts:
                 time.sleep(sleep)
-    raise RuntimeError("Overpass API failed after 3 attempts") from last_error
+    raise RuntimeError(f"Overpass API failed after {attempts} attempts") from last_error
 
 
 def feature_sort_key(feature: dict) -> tuple:

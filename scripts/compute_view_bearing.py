@@ -30,7 +30,10 @@ import os
 import sys
 import time
 
-import requests
+if __package__:
+    from .fetch_osm_lenins import OVERPASS_URL, fetch_overpass_elements
+else:
+    from fetch_osm_lenins import OVERPASS_URL, fetch_overpass_elements
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(HERE)
@@ -42,7 +45,6 @@ ATTRIBUTION_MAX_DIST = 150
 MAX_USABLE_ROAD_DIST = 35
 BATCH_SIZE = 15
 
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 HEADERS = {"User-Agent": "tut-staic-lenin-view-bearing/1.0 (contact: ivan.liadzian@mapbox.com)"}
 
 MINOR_HIGHWAY_TYPES = {"footway", "path", "steps", "pedestrian", "cycleway", "track", "service"}
@@ -74,17 +76,7 @@ def closest_point_on_segment(px, py, x1, y1, x2, y2):
 
 def overpass_query(clauses):
     query = f"[out:json][timeout:90];\n(\n{clauses}\n);\nout geom;\n"
-    last_error = None
-    for attempt in range(3):
-        try:
-            r = requests.post(OVERPASS_URL, data={"data": query}, headers=HEADERS, timeout=120)
-            r.raise_for_status()
-            return r.json().get("elements", [])
-        except Exception as e:
-            last_error = e
-            print(f"  overpass error (attempt {attempt + 1}): {e}", file=sys.stderr)
-            time.sleep(5)
-    raise RuntimeError("Overpass API failed after 3 attempts") from last_error
+    return fetch_overpass_elements(query, url=OVERPASS_URL, headers=HEADERS)
 
 
 def point_cache_key(point):
