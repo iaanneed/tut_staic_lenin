@@ -22,22 +22,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          27.8476599,
-          54.2003557
-        ]
-      },
-      "properties": {
-        "id": "node/377596702",
-        "name": "Уладзіміру Леніну",
-        "city": "г. Лагойск",
-        "memorial": "statue"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           31.0153002,
           52.4242035
         ]
@@ -278,21 +262,6 @@
         "name": "Ленін",
         "city": "г.п. Хоцімск",
         "memorial": "statue"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          28.6406467,
-          53.298732
-        ]
-      },
-      "properties": {
-        "id": "node/3119003619",
-        "name": "Ленін",
-        "city": "г. Асіповічы"
       }
     },
     {
@@ -2002,8 +1971,8 @@
       "properties": {
         "id": "node/12367287201",
         "name": "У. І. Ленін",
-        "memorial": "statue",
-        "city": "в. Юравічы"
+        "city": "в. Юравічы",
+        "memorial": "statue"
       }
     },
     {
