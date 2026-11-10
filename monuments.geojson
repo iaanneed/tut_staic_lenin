@@ -699,7 +699,7 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          27.847660,
+          27.84766,
           54.200358
         ]
       },
@@ -1637,6 +1637,27 @@
         "source_id": 88,
         "source_date": "2026-11-08T13:27:12+00:00",
         "viewBearing": 267.7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.230396,
+          53.161672
+        ]
+      },
+      "properties": {
+        "city": "г. Бабруйск",
+        "title": "Фандокаўскі",
+        "regionHashtag": "#Магілеўская",
+        "monumentType": null,
+        "imageUrl_preview": "photos/photo_89@09-11-2026_15-40-56.jpg",
+        "imageUrl_full": "photos/photo_89@09-11-2026_15-40-56.jpg",
+        "source_id": 89,
+        "source_date": "2026-11-09T15:40:56+00:00",
+        "viewBearing": 350.8
       }
     }
   ]
